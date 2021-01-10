@@ -1,12 +1,17 @@
 var vue ;
 $(function(){
     vue = new Vue({
-            el: '#main',
+            el: '#mainDiv',
             data:{
                 pictures: []
              }
     })
     getData()
+    initChart('chart01', '收入', '商品价格+运费', 5, 6, '#E0DEDE')
+    initChart('chart02', '成本', '配送+亚马逊销售费用+商品成本+仓储成本', 9, 14, '#F1F4F5')
+    initChart('chart03', '卖方收益', '收入-亚马逊销售费用-配送成本-仓储成本', 9, 11, '#E0DEDE')
+    initChart('chart04', '净利', '收入-费用', 10, 21, '#F1F4F5')
+
 });
 
 function getData(){
@@ -31,5 +36,3 @@ function getData(){
 //     })
 
 }
-
-

@@ -11,28 +11,16 @@
     <link href="./assets/dist/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js" ></script>
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
     <!-- Custom styles for this template -->
     <link href="./css/style.css" rel="stylesheet">
   </head>
   <body>
-  <div class="contentDiv"  id="main">
+
+  <div class="contentDiv"  id="mainDiv">
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
       <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>
       <nav class="my-2 my-md-0 mr-md-3">
@@ -385,7 +373,7 @@
 
 
 
-          <tr><td colspan="3"><div style="background:#000000;height:2px"></div></td></tr>
+          <tr><td colspan="3"><div style="background:#000000;height:1px"></div></td></tr>
           <!-- area 1  -->
 
 
@@ -434,7 +422,7 @@
 
 
 
-          <tr><td colspan="3"><div style="background:#000000;height:2px"></div></td></tr>
+          <tr><td colspan="3"><div style="background:#000000;height:1px"></div></td></tr>
           <!-- area 2  -->
 
           <tr style="height:50px">
@@ -491,7 +479,7 @@
           </tr>
 
 
-          <tr><td colspan="3"><div style="background:#000000;height:2px"></div></td></tr>
+          <tr><td colspan="3"><div style="background:#000000;height:1px"></div></td></tr>
           <!-- area 3  -->
           <tr>
             <td >
@@ -514,9 +502,21 @@
           </tbody>
         </table>
       </div>
-      <div style="overflow:hidden">
 
+
+      <!-- right  content ----------->
+      <div style="overflow:hidden;">
+        <div style="height:160px"></div>
+          <div class="row" style="height:400px;border:1px solid #868686;" >
+            <div class="col-3"  id="chart01"  style="padding:0px;margin:0px;height:450px" ></div>
+            <div class="col-3" id="chart02" style="padding:0px;margin:0px;height:450px"></div>
+            <div class="col-3" id="chart03" style="padding:0px;margin:0px;height:450px"></div>
+            <div class="col-3" id="chart04" style="padding:0px;margin:0px;height:450px"></div>
+          </div>
+      <div></div>
       </div>
+
+      <!-- right  end ----------->
     </div>
   </div>
 
@@ -526,6 +526,7 @@
     <div class="row">
       <div class="col-12 col-md">
         <small class="d-block mb-3 text-muted">&copy; 2017-2020</small>
+
       </div>
 
     </div>
@@ -534,8 +535,12 @@
 
 
   </div>
+
+
 </body>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js" ></script>
+
+  <script type="text/javascript" src="./js/echarts.min.js" ></script>
   <script type="text/javascript" src="./js/app.js" ></script>
+  <script type="text/javascript" src="./js/chart.js" ></script>
+
 </html>
