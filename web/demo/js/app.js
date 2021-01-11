@@ -21,7 +21,7 @@ $(function(){
     initChart('chart03', '卖方收益', '收入-亚马逊销售费用-配送成本-仓储成本', 9, 11, '#E0DEDE')
     initChart('chart04', '净利', '收入-费用', 10, 21, '#F1F4F5')
 
-//    start_search_inner()
+    show_search_result_inner()
 });
 
 function getData(){

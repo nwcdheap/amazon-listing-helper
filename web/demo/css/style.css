@@ -34,11 +34,11 @@ html {
 }
 
 .text-align-right{text-align:right}
-.table-label {height:30px;line-height:30px;text-align:right;padding:0;vertical-align:middle;float:right}
-.table-text {height:30px;line-height:30px;text-align:right;padding:0;vertical-align:middle}
-.table-input {height:30px;line-height:30px;text-align:right}
+.table-label {height:22px;line-height:22px;text-align:right;padding:0;vertical-align:middle;float:right}
+.table-text {height:22px;line-height:22px;text-align:right;padding:0;vertical-align:middle}
+.table-input {height:22px;line-height:22px;text-align:right}
 
-.table-text-left {height:30px;line-height:30px;padding:0;vertical-align:middle}
+.table-text-left {height:22px;line-height:22px;padding:0;vertical-align:middle}
 .table-div-row{padding-left:18px;padding-right:18px}
 
 .loadingModal{
@@ -47,4 +47,24 @@ html {
     left:50%;
     transform: translateX(-50%) translateY(-50%);
 
+}
+
+.product_table tr{
+    margin:10px;
+    back
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.product_table td{
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.product_table tr td div{
+   text-align:center
+}
+
+.product_table tr td div img{
+   width:100px;
 }
