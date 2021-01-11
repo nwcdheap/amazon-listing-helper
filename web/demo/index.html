@@ -8,533 +8,565 @@
     <title>电商助手</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="./assets/dist/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<!--    <link href="./assets/dist/css/bootstrap.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js" ></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="./css/style.css" rel="stylesheet">
   </head>
   <body>
 
-  <div class="contentDiv"  id="mainDiv">
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-      <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>
-      <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="#"></a>
-
-      </nav>
-      <a class="btn btn-outline-primary" href="#">登录</a>
-    </div>
-
-
-
-<div  style="margin:30px;margin-top:35px">
-
-  <div style="margin-bottom:20px">
-    <h2 style="color:#BF6B27">亚马逊收入计算器</h2>
-
-    <span>提供您的履行成本，并查看您的履行与我们在Amazon.ca上为客户订单提供的服务之间的实时成本比较</span>
-
-    <div>
-      <small><b>免责声明</b> 此亚马逊收入计算器的实现应仅用作评估亚马逊物流的指南。Amazon不保证此收入计算器中信息或计算的准确性。应对此收入计算器的输出进行独立分析，以验证结果。请查阅《亚马逊服务业务解决方案协议》以获取最新费用。新亚马逊配送选项反映您当前的亚马逊销售费用和亚马逊物流配送费用。</small>
-    </div>
-  </div>
-
-  <div  style="border:1px solid #B7BFDA;background:#F2F9FB;padding-top:15px;padding-left:10px;padding-bottom:35px">
-
-
-    <div >
-      <h5 style="color:#BF6B27;padding-left:20px"> 在Amazon.ca上找到您的产品 </h5>
-      <form class="form-inline">
-
-        <div class="form-group mx-sm-3 mb-2" style="width:550px">
-          <input type="text" class="form-control" id="inputPassword2" style="width:550px" placeholder="产品名称">
+  <!-- Modal  start -->
+  <div class="modal fade loadingModal"  id="progressBar" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" style="width:500px">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <button type="submit" class="btn btn-primary mb-2">搜索</button>
-      </form>
+        <div class="modal-body">
+          <div style="width:400px"> 信息查询中 </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade loadingModal" style="width:1500px" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog"  style="width:1200px">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">选择您的商品</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <div > sdafdsaf </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal  end -->
+
+
+  <div class="contentDiv"  id="mainDiv">
+    <div class="form-group row "  style="padding-left:20px;padding-right:20px"  >
+      <h5 class="col-sm-2" >Company name</h5>
+      <div class="col-sm-8  ">  &nbsp;</div>
+      <div class="col-sm-2 table-text " ><a class="btn btn-outline-primary" href="#">登录</a> </div>
     </div>
 
 
 
 
 
-  </div>
+    <div  style="margin:30px;margin-top:35px">
 
+    <div style="margin-bottom:20px">
+      <h2 style="color:#BF6B27">亚马逊收入计算器</h2>
 
+      <span>提供您的履行成本，并查看您的履行与我们在Amazon.ca上为客户订单提供的服务之间的实时成本比较</span>
 
-  <div style="border:1px solid #B7BFDA;margin-top:20px;background:#F3F3F3">
-
-    <div style="height:1000px">
-      <div style="width:700px;float:left;padding:10px">
-
-        <table style="margin:10px;margin-right:40px" >
-          <thead>
-          <tr>
-            <th scope="col" style="width:40%"></th>
-            <th scope="col" style="width:30%;text-align:right">自己配送</th>
-            <th scope="col" style="width:30%;text-align:right">Amazon配送</th>
-          </tr>
-          </thead>
-          <tbody>
-
-          <tr style="height:50px">
-            <td >
-              <div class="form-group row table-div-row"  >
-                <div class="table-text-left" ><b >收入</b> </div>
-              </div>
-            </td>
-            <td></td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td >
-              <div class="form-group row table-div-row"   >
-                <label  class="col-sm-3 col-form-label table-text" ></label>
-                <div class="col-sm-9 table-label"><span>商品价格</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row">
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td >
-              <div class="form-group row table-div-row"   >
-                <label  class="col-sm-3 col-form-label table-text" ></label>
-                <div class="col-sm-9 table-label"><span>运输</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-
-            <td>
-              <div class="form-group row table-div-row">
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <span class="col-sm-6" style="padding:0"></span>
-                <span class="col-sm-3 table-text" >1.00</span>
-              </div>
-            </td>
-          </tr>
-
-
-          <tr>
-            <td >
-              <div class="form-group row table-div-row"   >
-                <label  class="col-sm-3 col-form-label table-text" ></label>
-                <div class="col-sm-9 table-label"><span>总收入</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-            <td>
-            <div class="form-group row table-div-row"  >
-              <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-              <span class="col-sm-6" style="padding:0"></span>
-              <span class="col-sm-3 table-text" >1.00</span>
-            </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <span class="col-sm-6" style="padding:0"></span>
-                <span class="col-sm-3 table-text" >1.00</span>
-              </div>
-            </td>
-          </tr>
-
-
-          <tr>
-            <td >
-              <div class="form-group row table-div-row"  >
-                <div class="table-text-left" ><b >出售亚马逊费用</b> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <span class="col-sm-6" style="padding:0"></span>
-                <span class="col-sm-3 table-text" >1.00</span>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <span class="col-sm-6" style="padding:0"></span>
-                <span class="col-sm-3 table-text" >1.00</span>
-              </div>
-            </td>
-          </tr>
-
-          <tr style="height:50px">
-            <td >
-              <div class="form-group row table-div-row"  >
-                <div class="table-text-left" ><b >履行费用</b> </div>
-              </div>
-            </td>
-            <td></td>
-            <td></td>
-          </tr>
-
-
-          <tr>
-            <td >
-              <div class="form-group row table-div-row"   >
-                <label  class="col-sm-3 col-form-label table-text" ></label>
-                <div class="col-sm-9 table-label"><span>卖方履行成本</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-
-            <td>
-              <div class="form-group row table-div-row">
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" ></span>
-                <span class="col-sm-3" style="padding:0"></span>
-                <span class="col-sm-6 table-text" >不适用</span>
-              </div>
-            </td>
-          </tr>
-
-
-          <tr>
-            <td >
-              <div class="form-group row table-div-row"   >
-                <label  class="col-sm-3 col-form-label table-text" ></label>
-                <div class="col-sm-9 table-label"><span>亚马逊配送费用</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-
-            <td>
-              <div class="form-group row table-div-row">
-                <span  class="col-sm-3 col-form-label table-text" ></span>
-                <div class="col-sm-3" style="padding:0"></div>
-                <span class="col-sm-6 table-text" >不适用</span>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" ></span>
-                <span class="col-sm-3" style="padding:0"></span>
-                <span class="col-sm-6 table-text" ></span>
-              </div>
-            </td>
-          </tr>
-
-
-          <tr>
-            <td >
-              <div class="form-group row table-div-row"   >
-                <label  class="col-sm-3 col-form-label table-text" ></label>
-                <div class="col-sm-9 table-label"><span>运送到亚马逊</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-
-            <td>
-              <div class="form-group row table-div-row">
-                <span  class="col-sm-3 col-form-label table-text" ></span>
-                <div class="col-sm-3" style="padding:0"></div>
-                <span class="col-sm-6 table-text" >不适用</span>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row">
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-          </tr>
-
-
-          <tr>
-            <td >
-              <div class="form-group row table-div-row"   >
-                <label  class="col-sm-3 col-form-label table-text" ></label>
-                <div class="col-sm-9 table-label"><span>总成本</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-
-            <td>
-            <div class="form-group row table-div-row"  >
-              <span  class="col-sm-3 col-form-label table-text" ></span>
-              <span class="col-sm-3" style="padding:0"></span>
-              <span class="col-sm-6 table-text" ></span>
-            </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" ></span>
-                <span class="col-sm-3" style="padding:0"></span>
-                <span class="col-sm-6 table-text" ></span>
-              </div>
-            </td>
-          </tr>
-
-
-          <tr style="height:50px">
-            <td >
-              <div class="form-group row table-div-row"  >
-                <div class="table-text-left" ><b >储存费用</b> </div>
-              </div>
-            </td>
-            <td></td>
-            <td></td>
-          </tr>
-
-
-
-
-          <tr>
-            <td >
-              <div class="form-group row table-div-row"   >
-                <label  class="col-sm-3 col-form-label table-text" ></label>
-                <div class="col-sm-9 table-label"><span>每月单位储存成本</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row">
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td >
-              <div class="form-group row table-div-row"   >
-                <label  class="col-sm-3 col-form-label table-text" ></label>
-                <div class="col-sm-9 table-label"><span>平均库存单位</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row">
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td >
-              <div class="form-group row table-div-row"   >
-                <label  class="col-sm-3 col-form-label table-text" ></label>
-                <div class="col-sm-9 table-label"><span>每售出单位的仓储成本</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row">
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-          </tr>
-
-
-
-
-
-
-
-          <tr><td colspan="3"><div style="background:#000000;height:1px"></div></td></tr>
-          <!-- area 1  -->
-
-
-          <tr style="height:50px;">
-            <td >
-              <div class="form-group row table-div-row" style="margin-top:20px"  >
-                <div class="table-text-left" ><b >卖方收益</b> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-            </td>
-            <td>
-              <div class="form-group row table-div-row" style="margin-top:20px" >
-                <span  class="col-sm-3 col-form-label table-text" ></span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row" style="margin-top:20px">
-                <span  class="col-sm-3 col-form-label table-text" ></span>
-                <div class="col-sm-9" style="padding:0"></div>
-              </div>
-            </td>
-          </tr>
-
-
-          <tr style="height:40px;">
-            <td >
-              <div class="form-group row table-div-row"   >
-                <div class="table-text-left" ><b >产品成本</b> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-            </td>
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row" >
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-          </tr>
-
-
-
-          <tr><td colspan="3"><div style="background:#000000;height:1px"></div></td></tr>
-          <!-- area 2  -->
-
-          <tr style="height:50px">
-            <td >
-              <div class="form-group row table-div-row"  >
-                <div class="table-text-left" ><b >净利润</b> </div>
-              </div>
-            </td>
-            <td></td>
-            <td></td>
-          </tr>
-
-
-          <tr>
-            <td >
-              <div class="form-group row table-div-row"   >
-                <label  class="col-sm-3 col-form-label table-text" ></label>
-                <div class="col-sm-9 table-label"><span>净利</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row">
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td >
-              <div class="form-group row table-div-row"   >
-                <label  class="col-sm-3 col-form-label table-text" ></label>
-                <div class="col-sm-9 table-label"><span>净利润</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-              </div>
-            <td>
-              <div class="form-group row table-div-row"  >
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row">
-                <span  class="col-sm-3 col-form-label table-text" >CAD</span>
-                <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
-              </div>
-            </td>
-          </tr>
-
-
-          <tr><td colspan="3"><div style="background:#000000;height:1px"></div></td></tr>
-          <!-- area 3  -->
-          <tr>
-            <td >
-
-            <td>
-
-            </td>
-
-            <td>
-              <div class="form-group row table-div-row" style="margin-bottom:20px;margin-top:20px">
-                <span  class="col-sm-7 col-form-label table-text" ></span>
-                <div class="col-sm-5" style="padding:0"><button type="submit" class="btn btn-primary mb-2">计算</button></div>
-              </div>
-            </td>
-          </tr>
-
-
-
-
-          </tbody>
-        </table>
+      <div>
+        <small><b>免责声明</b> 此亚马逊收入计算器的实现应仅用作评估亚马逊物流的指南。Amazon不保证此收入计算器中信息或计算的准确性。应对此收入计算器的输出进行独立分析，以验证结果。请查阅《亚马逊服务业务解决方案协议》以获取最新费用。新亚马逊配送选项反映您当前的亚马逊销售费用和亚马逊物流配送费用。</small>
       </div>
+    </div>
 
+    <div  style="border:1px solid #B7BFDA;background:#F2F9FB;padding-top:15px;padding-left:10px;padding-bottom:35px">
+      <div >
+        <h5 style="color:#BF6B27;padding-left:20px"> 在Amazon.ca上找到您的产品 </h5>
+        <form class="form-inline">
 
-      <!-- right  content ----------->
-      <div style="overflow:hidden;">
-        <div style="height:160px"></div>
-          <div class="row" style="height:400px;border:1px solid #868686;" >
-            <div class="col-3"  id="chart01"  style="padding:0px;margin:0px;height:450px" ></div>
-            <div class="col-3" id="chart02" style="padding:0px;margin:0px;height:450px"></div>
-            <div class="col-3" id="chart03" style="padding:0px;margin:0px;height:450px"></div>
-            <div class="col-3" id="chart04" style="padding:0px;margin:0px;height:450px"></div>
+          <div class="form-group mx-sm-3 mb-2" style="width:550px">
+            <input type="text" class="form-control" id="inputPassword2" style="width:550px" placeholder="产品名称">
           </div>
-      <div></div>
+          <button type="button" class="btn btn-primary mb-2"   v-on:click="start_search" >搜索</button>
+        </form>
       </div>
-
-      <!-- right  end ----------->
     </div>
-  </div>
 
 
 
-  <footer class="pt-4 border-top" >
-    <div class="row">
-      <div class="col-12 col-md">
-        <small class="d-block mb-3 text-muted">&copy; 2017-2020</small>
+     <div style="border:1px solid #B7BFDA;margin-top:20px;background:#F3F3F3">
 
-      </div>
+           <div style="height:1100px">
+                <!-- left  content ----------->
+                <div style="width:650px;float:left;padding:8px">
 
+                  <table style="margin:10px;margin-right:40px" >
+                    <thead>
+                    <tr>
+                      <th scope="col" style="width:40%"></th>
+                      <th scope="col" style="width:30%;text-align:right">自己配送</th>
+                      <th scope="col" style="width:30%;text-align:right">Amazon配送</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr style="height:40px">
+                      <td >
+                        <div class="form-group row table-div-row"  >
+                          <div class="table-text-left" ><b >收入</b> </div>
+                        </div>
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+
+                    <tr>
+                      <td >
+                        <div class="form-group row table-div-row"   >
+                          <label  class="col-sm-3 col-form-label table-text" ></label>
+                          <div class="col-sm-9 table-label"><span>商品价格</span> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row">
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td >
+                        <div class="form-group row table-div-row"   >
+                          <label  class="col-sm-3 col-form-label table-text" ></label>
+                          <div class="col-sm-9 table-label"><span>运输</span> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+
+                      <td>
+                        <div class="form-group row table-div-row">
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <span class="col-sm-6" style="padding:0"></span>
+                          <span class="col-sm-3 table-text" >1.00</span>
+                        </div>
+                      </td>
+                    </tr>
+
+
+                    <tr>
+                      <td >
+                        <div class="form-group row table-div-row"   >
+                          <label  class="col-sm-3 col-form-label table-text" ></label>
+                          <div class="col-sm-9 table-label"><span>总收入</span> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+                      <td>
+                      <div class="form-group row table-div-row"  >
+                        <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                        <span class="col-sm-6" style="padding:0"></span>
+                        <span class="col-sm-3 table-text" >1.00</span>
+                      </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <span class="col-sm-6" style="padding:0"></span>
+                          <span class="col-sm-3 table-text" >1.00</span>
+                        </div>
+                      </td>
+                    </tr>
+
+
+                    <tr>
+                      <td >
+                        <div class="form-group row table-div-row"  >
+                          <div class="table-text-left" ><b >出售亚马逊费用</b> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <span class="col-sm-6" style="padding:0"></span>
+                          <span class="col-sm-3 table-text" >1.00</span>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <span class="col-sm-6" style="padding:0"></span>
+                          <span class="col-sm-3 table-text" >1.00</span>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr style="height:50px">
+                      <td >
+                        <div class="form-group row table-div-row"  >
+                          <div class="table-text-left" ><b >履行费用</b> </div>
+                        </div>
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+
+
+                    <tr>
+                      <td >
+                        <div class="form-group row table-div-row"   >
+                          <label  class="col-sm-3 col-form-label table-text" ></label>
+                          <div class="col-sm-9 table-label"><span>卖方履行成本</span> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+
+                      <td>
+                        <div class="form-group row table-div-row">
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" ></span>
+                          <span class="col-sm-3" style="padding:0"></span>
+                          <span class="col-sm-6 table-text" >不适用</span>
+                        </div>
+                      </td>
+                    </tr>
+
+
+                    <tr>
+                      <td >
+                        <div class="form-group row table-div-row"   >
+                          <label  class="col-sm-3 col-form-label table-text" ></label>
+                          <div class="col-sm-9 table-label"><span>亚马逊配送费用</span> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+
+                      <td>
+                        <div class="form-group row table-div-row">
+                          <span  class="col-sm-3 col-form-label table-text" ></span>
+                          <div class="col-sm-3" style="padding:0"></div>
+                          <span class="col-sm-6 table-text" >不适用</span>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" ></span>
+                          <span class="col-sm-3" style="padding:0"></span>
+                          <span class="col-sm-6 table-text" ></span>
+                        </div>
+                      </td>
+                    </tr>
+
+
+                    <tr>
+                      <td >
+                        <div class="form-group row table-div-row"   >
+                          <label  class="col-sm-3 col-form-label table-text" ></label>
+                          <div class="col-sm-9 table-label"><span>运送到亚马逊</span> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+
+                      <td>
+                        <div class="form-group row table-div-row">
+                          <span  class="col-sm-3 col-form-label table-text" ></span>
+                          <div class="col-sm-3" style="padding:0"></div>
+                          <span class="col-sm-6 table-text" >不适用</span>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row">
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+                    </tr>
+
+
+                    <tr>
+                      <td >
+                        <div class="form-group row table-div-row"   >
+                          <label  class="col-sm-3 col-form-label table-text" ></label>
+                          <div class="col-sm-9 table-label"><span>总成本</span> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+
+                      <td>
+                      <div class="form-group row table-div-row"  >
+                        <span  class="col-sm-3 col-form-label table-text" ></span>
+                        <span class="col-sm-3" style="padding:0"></span>
+                        <span class="col-sm-6 table-text" ></span>
+                      </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" ></span>
+                          <span class="col-sm-3" style="padding:0"></span>
+                          <span class="col-sm-6 table-text" ></span>
+                        </div>
+                      </td>
+                    </tr>
+
+
+                    <tr style="height:50px">
+                      <td >
+                        <div class="form-group row table-div-row"  >
+                          <div class="table-text-left" ><b >储存费用</b> </div>
+                        </div>
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+
+
+
+
+                    <tr>
+                      <td >
+                        <div class="form-group row table-div-row"   >
+                          <label  class="col-sm-3 col-form-label table-text" ></label>
+                          <div class="col-sm-9 table-label"><span>每月单位储存成本</span> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row">
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td >
+                        <div class="form-group row table-div-row"   >
+                          <label  class="col-sm-3 col-form-label table-text" ></label>
+                          <div class="col-sm-9 table-label"><span>平均库存单位</span> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row">
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td >
+                        <div class="form-group row table-div-row"   >
+                          <label  class="col-sm-3 col-form-label table-text" ></label>
+                          <div class="col-sm-9 table-label"><span>每售出单位的仓储成本</span> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row">
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+                    </tr>
+
+
+
+
+
+
+
+                    <tr><td colspan="3"><div style="background:#000000;height:1px"></div></td></tr>
+                    <!-- area 1  -->
+
+
+                    <tr style="height:50px;">
+                      <td >
+                        <div class="form-group row table-div-row" style="margin-top:20px"  >
+                          <div class="table-text-left" ><b >卖方收益</b> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group row table-div-row" style="margin-top:20px" >
+                          <span  class="col-sm-3 col-form-label table-text" ></span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row" style="margin-top:20px">
+                          <span  class="col-sm-3 col-form-label table-text" ></span>
+                          <div class="col-sm-9" style="padding:0"></div>
+                        </div>
+                      </td>
+                    </tr>
+
+
+                    <tr style="height:40px;">
+                      <td >
+                        <div class="form-group row table-div-row"   >
+                          <div class="table-text-left" ><b >产品成本</b> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row" >
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+                    </tr>
+
+
+
+                    <tr><td colspan="3"><div style="background:#000000;height:1px"></div></td></tr>
+                    <!-- area 2  -->
+
+                    <tr style="height:50px">
+                      <td >
+                        <div class="form-group row table-div-row"  >
+                          <div class="table-text-left" ><b >净利润</b> </div>
+                        </div>
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+
+
+                    <tr>
+                      <td >
+                        <div class="form-group row table-div-row"   >
+                          <label  class="col-sm-3 col-form-label table-text" ></label>
+                          <div class="col-sm-9 table-label"><span>净利</span> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row">
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td >
+                        <div class="form-group row table-div-row"   >
+                          <label  class="col-sm-3 col-form-label table-text" ></label>
+                          <div class="col-sm-9 table-label"><span>净利润</span> <span class="glyphicon glyphicon-question-sign"></span></div>
+                        </div>
+                      <td>
+                        <div class="form-group row table-div-row"  >
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row">
+                          <span  class="col-sm-3 col-form-label table-text" >CAD</span>
+                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                        </div>
+                      </td>
+                    </tr>
+
+
+                    <tr><td colspan="3"><div style="background:#000000;height:1px"></div></td></tr>
+                    <!-- area 3  -->
+                    <tr>
+                      <td >
+
+                      <td>
+
+                      </td>
+
+                      <td>
+                        <div class="form-group row table-div-row" style="margin-bottom:20px;margin-top:20px">
+                          <span  class="col-sm-7 col-form-label table-text" ></span>
+                          <div class="col-sm-5" style="padding:0"><button type="submit" class="btn btn-primary mb-2">计算</button></div>
+                        </div>
+                      </td>
+                    </tr>
+
+
+
+
+                    </tbody>
+                  </table>
+                </div>
+                <!-- left  content ----------->
+
+                <!-- right  content ----------->
+                <div style="overflow:hidden;">
+                  <div style="height:160px"></div>
+                    <div class="row" style="height:350px;border:1px solid #868686;" >
+                      <div class="col-sm-3"  id="chart01"  style="padding:0px;margin:0px;height:350px" ></div>
+                      <div class="col-sm-3" id="chart02" style="padding:0px;margin:0px;height:350px"></div>
+                      <div class="col-sm-3" id="chart03" style="padding:0px;margin:0px;height:350px"></div>
+                      <div class="col-sm-3" id="chart04" style="padding:0px;margin:0px;height:350px"></div>
+                    </div>
+                <div></div>
+                </div>
+                <!-- right  end ----------->
     </div>
-  </footer>
+     </div>
+
+
+
+
 </div>
 
 
+    <footer class="pt-4 border-top" >
+      <div class="row">
+        <div class="col-12 col-md">
+          <small class="d-block mb-3 text-muted">&copy; 2017-2020</small>
+
+        </div>
+
+      </div>
+    </footer>
+
   </div>
+
 
 
 </body>

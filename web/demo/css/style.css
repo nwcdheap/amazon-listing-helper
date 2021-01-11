@@ -1,14 +1,14 @@
 html {
-  font-size: 14px;
+  font-size: 12px;
 }
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 12px;
   }
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1400px;
 }
 
 .pricing-header {
@@ -40,3 +40,11 @@ html {
 
 .table-text-left {height:30px;line-height:30px;padding:0;vertical-align:middle}
 .table-div-row{padding-left:18px;padding-right:18px}
+
+.loadingModal{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translateX(-50%) translateY(-50%);
+
+}
