@@ -3,7 +3,7 @@ $(function(){
     vue = new Vue({
             el: '#mainDiv',
             data:{
-                pictures: []
+                amazon_fulfilment_item: {"item_price":0.02}
              },
              methods:{
                  start_search:function(){   // 获取文件 文件保存在S3中
@@ -33,7 +33,24 @@ $(function(){
 
 //    show_search_result_inner()
     show_left_content_inner()
+    init_data()
 });
+
+
+function init_data(){
+
+    vue.amazon_fulfilment_item['item_price']    = 0.1
+    vue.amazon_fulfilment_item['shipping']      = 0.0
+    vue.amazon_fulfilment_item['deliver_to_amazon']      = 0.3
+    vue.amazon_fulfilment_item['average_units_stored']      = 0
+    vue.amazon_fulfilment_item['product_cost']      = 0.4
+    vue.amazon_fulfilment_item['net_profit']      = 'a'
+    vue.amazon_fulfilment_item['net_margin']      = 'b'
+    vue.amazon_fulfilment_item['is_increase']      = false
+
+
+
+}
 
 function getData(){
 
@@ -83,7 +100,10 @@ function show_left_content_inner() {
 function calculate_revenue_inner() {
 
     //TODO: 计算
-    alert(" calculate")
+
+    $("#amazon_net_profit").html('12')
+    $("#amazon_net_margin").html('120%')
+    vue.amazon_fulfilment_item['is_increase']      = true
     $("#right_content").css("visibility","visible");
 
 }

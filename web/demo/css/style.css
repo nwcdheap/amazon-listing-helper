@@ -16,7 +16,7 @@
 .text-align-right{text-align:right}
 .table-label {height:20px;line-height:20px;text-align:right;padding:0;vertical-align:middle;float:right}
 .table-text  {height:20px;line-height:20px;text-align:right;padding:0;vertical-align:middle}
-.table-input {height:20px;line-height:20px;text-align:right}
+.table-input {height:20px;line-height:20px;text-align:right;padding-left:1px;padding-right:1px}
 
 .table-text-left {height:20px;line-height:20px;padding:0;vertical-align:middle}
 .table-div-row{height:18px;padding-left:18px;padding-right:18px}
@@ -60,4 +60,15 @@
     border:none;
     margin:0px;
     padding:0px;
+}
+.text_color_red{
+    color:red;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.text_color_green{
+    color:green;
+    font-size:13px;
+    font-weight:bold;
 }
