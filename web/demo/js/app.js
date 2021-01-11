@@ -32,8 +32,9 @@ $(function(){
     initChart('chart04', '净利', '收入-费用', 10, 21, '#F1F4F5')
 
 //    show_search_result_inner()
-    show_left_content_inner()
+//    show_left_content_inner()
     init_data()
+    start_search_inner()
 });
 
 
@@ -77,6 +78,7 @@ function getData(){
 
 function start_search_inner(){
     $('#progressBar').modal('show')
+    $("#loading-icon").show()
     setTimeout("show_search_result_inner()",2000)
 }
 
