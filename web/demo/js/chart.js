@@ -11,7 +11,7 @@ function initChart(chartId, title , subTitle, value_1, value_2, backgroundColor)
         align: 'middle',
         verticalAlign: 'middle',
         rotate: 0,
-        formatter: 'CAD {c}  ',
+        formatter: '$ {c}  ',
         fontSize: 18,
         rich: {
             c: {
