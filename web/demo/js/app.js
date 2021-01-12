@@ -40,13 +40,13 @@ $(function(){
 
 function init_data(){
 
-    vue.amazon_fulfilment_item['item_price']    = 0.1
-    vue.amazon_fulfilment_item['shipping']      = 0.0
-    vue.amazon_fulfilment_item['deliver_to_amazon']      = 0.3
-    vue.amazon_fulfilment_item['average_units_stored']      = 0
-    vue.amazon_fulfilment_item['product_cost']      = 0.4
-    vue.amazon_fulfilment_item['net_profit']      = 'a'
-    vue.amazon_fulfilment_item['net_margin']      = 'b'
+    vue.amazon_fulfilment_item['item_price']    = 20
+    vue.amazon_fulfilment_item['shipping']      = 1
+    vue.amazon_fulfilment_item['deliver_to_amazon']      = 2
+    vue.amazon_fulfilment_item['average_units_stored']      = 3
+    vue.amazon_fulfilment_item['product_cost']      = 5
+    vue.amazon_fulfilment_item['net_profit']      = '0.00'
+    vue.amazon_fulfilment_item['net_margin']      = '0.00'
     vue.amazon_fulfilment_item['is_increase']      = false
 
 
@@ -103,9 +103,26 @@ function calculate_revenue_inner() {
 
     //TODO: 计算
 
-    $("#amazon_net_profit").html('12')
-    $("#amazon_net_margin").html('120%')
+
+
+    item_price = vue.amazon_fulfilment_item['item_price']
+    deliver_to_amazon = vue.amazon_fulfilment_item['deliver_to_amazon']
+    average_units_stored = vue.amazon_fulfilment_item['average_units_stored']
+    product_cost = vue.amazon_fulfilment_item['product_cost']
+
+
+    var result = calcAmazon(item_price, deliver_to_amazon ,
+                    average_units_stored ,product_cost,
+                     4,4,24);
+
+    console.log(result)
+
+    //TODO: 包装尺寸
     vue.amazon_fulfilment_item['is_increase']      = true
+    $("#amazon_net_profit").html(result['netProfit'])
+    $("#amazon_net_margin").html(result['netMargin']+'%')
+
+
     $("#right_content").css("visibility","visible");
 
 }

@@ -196,7 +196,7 @@
           <div  style="width:130px;float:left;padding:3px;text-align:center">
               <div ><img style="width:100px;height:100px" src="https://m.media-amazon.com/images/I/41TcQSxOraL._SL120_SL80_.jpg"></div>
               <div  style="margin-top:10px"><a href=""><small>查看产品详情</small>  </a></div>
-              <div style="margin-top:10px"><button type="button"  class="btn btn-default btn-xs" v-on:click="init_search_inner">选择其它商品</button></div>
+              <div style="margin-top:10px"><button type="button"  class="btn btn-default btn-xs" v-on:click="init_search_inner">尝试其它商品</button></div>
           </div>
           <div   style="overflow:hidden;">
             <h5>PARKER Im Rollerball Pen, Black Lacquer Gold Trim with Fine Point Black Ink Refill</h5>
@@ -246,14 +246,14 @@
                       <td>
                         <div class="form-group row table-div-row"  >
                           <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
                         </div>
                       </td>
 
                       <td>
                         <div class="form-group row table-div-row">
                           <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="text"  class="form-control table-input"
+                          <div class="col-sm-9" style="padding:0"><input type="number"  class="form-control table-input"
                                                                          v-model="amazon_fulfilment_item.item_price"></div>
                         </div>
                       </td>
@@ -269,7 +269,7 @@
                       <td>
                         <div class="form-group row table-div-row">
                           <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
                         </div>
                       </td>
 
@@ -350,7 +350,7 @@
                       <td>
                         <div class="form-group row table-div-row">
                           <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
                         </div>
                       </td>
 
@@ -407,7 +407,7 @@
                       <td>
                         <div class="form-group row table-div-row">
                           <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input"
+                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input"
                                                                          v-model="amazon_fulfilment_item.deliver_to_amazon">
                           </div>
                         </div>
@@ -462,7 +462,7 @@
                       <td>
                         <div class="form-group row table-div-row"  >
                           <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
                         </div>
                       </td>
 
@@ -483,14 +483,14 @@
                       <td>
                         <div class="form-group row table-div-row"  >
                           <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
                         </div>
                       </td>
 
                       <td>
                         <div class="form-group row table-div-row">
                           <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" v-model="amazon_fulfilment_item.average_units_stored">
+                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" v-model="amazon_fulfilment_item.average_units_stored">
                           </div>
                         </div>
                       </td>
@@ -536,7 +536,7 @@
                       <td>
                         <div class="form-group row table-div-row" style="margin-top:20px" >
                           <span  class="col-sm-3 col-form-label table-text" >&nbsp;</span>
-                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
                         </div>
                       </td>
 
@@ -558,14 +558,14 @@
                       <td>
                         <div class="form-group row table-div-row"  >
                           <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="text" class="form-control table-input" ></div>
+                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
                         </div>
                       </td>
 
                       <td>
                         <div class="form-group row table-div-row" >
                           <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input  type="text" class="form-control table-input" v-model="amazon_fulfilment_item.product_cost">
+                          <div class="col-sm-9" style="padding:0"><input  type="number" class="form-control table-input" v-model="amazon_fulfilment_item.product_cost">
                           </div>
                         </div>
                       </td>
@@ -698,9 +698,10 @@
 
 
 </body>
-
+  <script type="text/javascript" src="./js/calc-full.js" ></script>
   <script type="text/javascript" src="./js/echarts.min.js" ></script>
   <script type="text/javascript" src="./js/app.js" ></script>
   <script type="text/javascript" src="./js/chart.js" ></script>
+
 
 </html>
