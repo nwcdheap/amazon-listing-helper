@@ -20,7 +20,7 @@ function calcSellFees(type,revenue){
         fee = doSellCalcFees(revenue,0.15,0,0.3);
         break;
     }
-    return fee;
+    return fee.toFixed(2);
 }
 
 //TODO size达标，重量超重需要处理，目前仅做了非服装
@@ -48,7 +48,7 @@ function calcFBAFees(type,size,weight){
         fba = 137.32+ weight*0.91;
         break;
     }
-    return fba;
+    return fba.toFixed(2);
 }
 
 /**
@@ -65,7 +65,7 @@ function calcAmazon(itemPrice,shipToAmazon,storedUnit,costProduct,type,size,weig
     result.sellingOnAmazonFees=calcSellFees(type,result.totalRevenue);
     result.fulfillmentByAmazonFees=calcFBAFees(type,size,weight);
     result.shipToAmazon=shipToAmazon;
-    result.totalFulfillmentCost=result.fulfillmentByAmazonFees+shipToAmazon;
+    result.totalFulfillmentCost=parseFloat(result.fulfillmentByAmazonFees)+shipToAmazon;
     result.monthlyStorageCostPerUnit=0.81;//TODO 费用按类别不同
     result.storedUnit=storedUnit;
     result.storageCost=result.monthlyStorageCostPerUnit*storedUnit;
