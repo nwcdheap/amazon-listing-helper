@@ -41,7 +41,6 @@ $(function(){
 function init_data(){
 
     vue.amazon_fulfilment_item['item_price']    = 20
-    vue.amazon_fulfilment_item['shipping']      = 1
     vue.amazon_fulfilment_item['deliver_to_amazon']      = 2
     vue.amazon_fulfilment_item['average_units_stored']      = 3
     vue.amazon_fulfilment_item['product_cost']      = 5
@@ -123,6 +122,23 @@ function calculate_revenue_inner() {
 
     $("#amazon_net_profit").html(result['netProfit'])
     $("#amazon_net_margin").html(result['netMargin']+'%')
+    $("#amazon_shipping").html(result['shipping'])
+    $("#amazon_total_revenue").html(result['totalRevenue'])
+    $("#amazon_selling_on_amazon_fees").html(result['sellingOnAmazonFees'])
+    $("#amazon_fulfillment_by_amazon_fees").html(result['fulfillmentByAmazonFees'])
+
+
+
+    $("#amazon_seller_proceeds").html(result['sellerProceeds'])
+    $("#amazon_monthly_storage_cost_per_unit").html(result['monthlyStorageCostPerUnit'])
+    $("#amazon_storage_cost").html(result['storageCost'])
+
+
+
+
+
+
+
 
 
     var netProfit = parseFloat(result['netProfit'])
