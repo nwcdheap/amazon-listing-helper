@@ -61,7 +61,7 @@ function calcAmazon(itemPrice,shipToAmazon,storedUnit,costProduct,type,size,weig
     result.type=type;
     result.itemPrice=itemPrice;
     result.shipping=0;
-    result.totalRevenue=itemPrice+result.shipping;
+    result.totalRevenue=parseFloat(itemPrice)+result.shipping;
     result.sellingOnAmazonFees=calcSellFees(type,result.totalRevenue);
     result.fulfillmentByAmazonFees=calcFBAFees(type,size,weight);
     result.shipToAmazon=shipToAmazon;
