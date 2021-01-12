@@ -67,14 +67,8 @@ input[type="number"]{	-moz-appearance: textfield; }
     margin:0px;
     padding:0px;
 }
-.text_color_red{
-    color:red;
-    font-size:13px;
-    font-weight:bold;
-}
 
-.text_color_green{
-    color:green;
+.text_result_bold{
     font-size:13px;
     font-weight:bold;
 }

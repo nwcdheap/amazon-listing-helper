@@ -47,7 +47,8 @@ function init_data(){
     vue.amazon_fulfilment_item['product_cost']      = 5
     vue.amazon_fulfilment_item['net_profit']      = '0.00'
     vue.amazon_fulfilment_item['net_margin']      = '0.00'
-    vue.amazon_fulfilment_item['is_increase']      = 0
+    vue.amazon_fulfilment_item['is_increase']      = true
+    vue.amazon_fulfilment_item['net_profit_value']      =  0
 
 
 
@@ -97,6 +98,7 @@ function show_left_content_inner() {
     $("#left_content").css("visibility","visible");
     $("#right_content").css("visibility","hidden");
 
+
 }
 
 function calculate_revenue_inner() {
@@ -122,17 +124,20 @@ function calculate_revenue_inner() {
     $("#amazon_net_profit").html(result['netProfit'])
     $("#amazon_net_margin").html(result['netMargin']+'%')
 
+
     var netProfit = parseFloat(result['netProfit'])
 
     console.log('netProfit = ', netProfit)
     if(netProfit >0 ){
-        console.log("------------------------------  1")
-        vue.amazon_fulfilment_item['is_increase']      = true
+        $("#amazon_net_profit").css("color", 'green');
+        $("#amazon_net_margin").css("color", 'green');
+
     }else {
-        console.log("------------------------------  2")
-        vue.amazon_fulfilment_item['is_increase']      = false
+
+        $("#amazon_net_profit").css("color", 'red');
+        $("#amazon_net_margin").css("color", 'red');
+
     }
-    vue.amazon_fulfilment_item['is_increase']      = false
 
 
     $("#right_content").css("visibility","visible");
