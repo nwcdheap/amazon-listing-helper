@@ -632,8 +632,9 @@
                         <div class="form-group row table-div-row">
                           <span  class="col-sm-3 col-form-label table-text" >&nbsp;</span>
                           <div class="col-sm-9" style="text-align:right">
-                            <span  v-bind:class="{'text_color_green' : amazon_fulfilment_item.is_increase, 'text_color_red' : !amazon_fulfilment_item.is_increase}"
+                            <span  class="text_color_red"  v-bind:class="{'text_color_green':amazon_fulfilment_item.is_increase}"
                                   id="amazon_net_margin"  ></span>
+
                           </div>
                         </div>
                       </td>

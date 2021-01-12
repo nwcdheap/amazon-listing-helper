@@ -32,9 +32,9 @@ $(function(){
     initChart('chart04', '净利', '收入-费用', 10, 21, '#F1F4F5')
 
 //    show_search_result_inner()
-//    show_left_content_inner()
+    show_left_content_inner()
     init_data()
-    start_search_inner()
+//    start_search_inner()
 });
 
 
@@ -47,7 +47,7 @@ function init_data(){
     vue.amazon_fulfilment_item['product_cost']      = 5
     vue.amazon_fulfilment_item['net_profit']      = '0.00'
     vue.amazon_fulfilment_item['net_margin']      = '0.00'
-    vue.amazon_fulfilment_item['is_increase']      = false
+    vue.amazon_fulfilment_item['is_increase']      = 0
 
 
 
@@ -110,7 +110,7 @@ function calculate_revenue_inner() {
     average_units_stored = vue.amazon_fulfilment_item['average_units_stored']
     product_cost = vue.amazon_fulfilment_item['product_cost']
 
-
+    console.log("calcAmazon    ",item_price, deliver_to_amazon, average_units_stored, product_cost )
     var result = calcAmazon(item_price, deliver_to_amazon ,
                     average_units_stored ,product_cost,
                      4,4,24);
@@ -118,9 +118,21 @@ function calculate_revenue_inner() {
     console.log(result)
 
     //TODO: 包装尺寸
-    vue.amazon_fulfilment_item['is_increase']      = true
+
     $("#amazon_net_profit").html(result['netProfit'])
     $("#amazon_net_margin").html(result['netMargin']+'%')
+
+    var netProfit = parseFloat(result['netProfit'])
+
+    console.log('netProfit = ', netProfit)
+    if(netProfit >0 ){
+        console.log("------------------------------  1")
+        vue.amazon_fulfilment_item['is_increase']      = true
+    }else {
+        console.log("------------------------------  2")
+        vue.amazon_fulfilment_item['is_increase']      = false
+    }
+    vue.amazon_fulfilment_item['is_increase']      = false
 
 
     $("#right_content").css("visibility","visible");
