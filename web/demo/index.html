@@ -128,19 +128,20 @@
       </div>
 
 
-      <div  id="product_content" style="border:1px solid #B7BFDA;margin-top:15px;height:180px;display: none;">
+      <div  id="product_content" style="border:1px solid #B7BFDA;margin-top:15px;height:170px;display: none;">
         <div  v-if="current_product != null">
-          <div  style="width:130px;float:left;padding:3px;text-align:center" >
-              <div ><img style="width:100px;height:100px" v-bind:src="current_product.thumbStringUrl"></div>
-              <div  style="margin-top:10px"><a href=""><small>查看产品详情</small>  </a></div>
-              <div style="margin-top:10px"><button type="button"  class="btn btn-default btn-xs" v-on:click="init_search_inner">尝试其它商品</button></div>
+          <div  style="width:140px;float:left;padding:3px;text-align:center" >
+              <div ><img style="width:120px;height:120px" v-bind:src="current_product.thumbStringUrl"></div>
+
+              <div style="margin-top:15px"><button type="button"  class="btn btn-default btn-xs" v-on:click="init_search_inner">尝试其它商品</button></div>
           </div>
           <div   style="overflow:hidden;">
-            <h5 v-text="current_product.title"> </h5>
+            <h5 style="width:900px" v-text="current_product.title"> </h5>
             <div><span><b>ASIN:</b> </span>  <span v-text="current_product.asin">B01LYDD533</span></div>
             <div><span><b>产品尺寸</b> </span>  <span>2.54 X 5.08 X 17.272 centimetres</span></div>
             <div><span><b>单位重量:</b> </span>  <span>0.077 公斤</span> </div>
 
+            <div  style="margin-top:10px"><a target="_blank" :href="current_product.detail_url"><small>查看产品详情</small>  </a></div>
           </div>
         </div>
       </div>
@@ -150,452 +151,121 @@
 
      <div style="border:1px solid #B7BFDA;margin-top:20px;background:#F3F3F3">
 
-           <div style="height:850px">
+           <div style="height:510px;margin:10px">
                 <!-- left  content ----------->
-                <div id="left_content" style="width:600px;float:left;padding:8px;visibility: hidden;">
+                <div id="left_content" style="background:F8F8FF;border:1px solid #B7BFDA;width:430px;float:left;padding:8px;visibility: hidden">
 
-                  <table >
+                  <table>
                     <thead>
-                    <tr>
-                      <th scope="col" style="width:40%"></th>
-                      <th scope="col" style="width:30%;text-align:right">自己配送</th>
-                      <th scope="col" style="width:30%;text-align:right">Amazon配送</th>
+                    <tr style="height:1px">
+                      <th scope="col" style="width:10%"></th>
+                      <th scope="col" style="width:55%;text-align:right"></th>
+                      <th scope="col" style="width:5%;text-align:right"></th>
+                      <th scope="col" style="width:30%;text-align:right"></th>
                     </tr>
                     </thead>
                     <tbody>
 
-                    <tr style="height:40px">
-                      <td >
-                        <div class="form-group row table-div-row"  >
-                          <div class="table-text-left" ><b >收入</b>  </div>
-                        </div>
-                      </td>
-                      <td></td>
-                      <td></td>
+                    <tr style="height:12px"><td colspan="4"><div style="background:#000000;height:1px;"></div></td></tr>
+                    <tr><td><h5>收入</h5> </td> <td> </td> <td> </td> <td></td> </tr>
+
+                    <tr>
+                      <td> </td>
+                      <td class="table-text">  销售价 <span class="glyphicon glyphicon-question-sign"></span></td>
+                      <td> $ </td>
+                      <td> <input type="number" class="form-control table-input" v-model="calculate_item.item_price" > </td>
                     </tr>
 
-                    <tr >
-                      <td  >
-                        <div class="form-group row table-div-row"   >
-                          <label  class="col-sm-3 col-form-label table-text" ></label>
-                          <div class="col-sm-9 col-form-label table-label"><span>商品价格</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
-                        </div>
-                      </td>
 
-                      <td>
-                        <div class="form-group row table-div-row">
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="number"  class="form-control table-input"
-                                                                         v-model="amazon_fulfilment_item.item_price"></div>
-                        </div>
-                      </td>
+                    <tr style="height:12px" ><td colspan="4"><div style="background:#000000;height:1px"></div></td></tr>
+                    <tr><td><h5>成本</h5></td> <td> </td> <td> </td> <td></td> </tr>
+
+                    <tr>
+                      <td> </td>
+                      <td class="table-text"> 产品成本 <span class="glyphicon glyphicon-question-sign"></span> </td>
+                      <td> $ </td>
+                      <td> <input type="number" class="form-control table-input" v-model="calculate_item.product_cost" > </td>
                     </tr>
 
                     <tr>
-                      <td >
-                        <div class="form-group row table-div-row"   >
-                          <label  class="col-sm-3 col-form-label table-text" ></label>
-                          <div class="col-sm-9 table-label"><span>运输</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-
-                      <td>
-                        <div class="form-group row table-div-row">
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
-                        </div>
-                      </td>
-
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <span class="col-sm-6" style="padding:0">&nbsp;</span>
-                          <span class="col-sm-3 table-text" id="amazon_shipping" > </span>
-                        </div>
-                      </td>
+                      <td> </td>
+                      <td class="table-text"> 头程物流 <span class="glyphicon glyphicon-question-sign"></span> </td>
+                      <td> $ </td>
+                      <td> <input type="number" class="form-control table-input"  v-model="calculate_item.deliver_to_amazon" > </td>
                     </tr>
 
 
                     <tr>
-                      <td >
-                        <div class="form-group row table-div-row"   >
-                          <label  class="col-sm-3 col-form-label table-text" ></label>
-                          <div class="col-sm-9 table-label"><span>总收入</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-                      <td>
-                      <div class="form-group row table-div-row"  >
-                        <span  class="col-sm-3 col-form-label table-text" >$</span>
-                        <span class="col-sm-6" style="padding:0">&nbsp;</span>
-                        <span class="col-sm-3 table-text"  >1.00</span>
-                      </div>
-                      </td>
-
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <span class="col-sm-6" style="padding:0">&nbsp;</span>
-                          <span class="col-sm-3 table-text" id="amazon_total_revenue" > </span>
-                        </div>
-                      </td>
+                      <td> </td>
+                      <td class="table-text"> 佣金  <span class="glyphicon glyphicon-question-sign"></span> </td>
+                      <td> $ </td>
+                      <td> <input type="number" class="form-control table-input"  v-model="calculate_item.brokerage" > </td>
                     </tr>
 
 
                     <tr>
-                      <td >
-                        <div class="form-group row table-div-row"  >
-                          <div class="table-text-left" ><b >出售亚马逊费用</b> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <span class="col-sm-6" style="padding:0">&nbsp;</span>
-                          <span class="col-sm-3 table-text" >1.00</span>
-                        </div>
-                      </td>
-
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <span class="col-sm-6" style="padding:0">&nbsp;</span>
-                          <span class="col-sm-3 table-text" id="amazon_selling_on_amazon_fees" ></span>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr >
-                      <td >
-                        <div class="form-group row table-div-row"  >
-                          <div class="table-text-left" ><b >履行费用</b> </div>
-                        </div>
-                      </td>
-                      <td></td>
-                      <td></td>
+                      <td> </td>
+                      <td class="table-text"> FBA物流 <span class="glyphicon glyphicon-question-sign"></span> </td>
+                      <td> $ </td>
+                      <td> <input type="number" class="form-control table-input"  v-model="calculate_item.fba" > </td>
                     </tr>
 
 
                     <tr>
-                      <td >
-                        <div class="form-group row table-div-row"   >
-                          <label  class="col-sm-3 col-form-label table-text" ></label>
-                          <div class="col-sm-9 table-label"><span>卖方履行成本</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-
-                      <td>
-                        <div class="form-group row table-div-row">
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
-                        </div>
-                      </td>
-
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" ></span>
-                          <span class="col-sm-3" style="padding:0"></span>
-                          <span class="col-sm-6 table-text" >不适用</span>
-                        </div>
-                      </td>
+                      <td> </td>
+                      <td class="table-text"> 获客成本（广告等） <span class="glyphicon glyphicon-question-sign"></span> </td>
+                      <td> $ </td>
+                      <td> <input type="number" class="form-control table-input"  v-model="calculate_item.marketing" > </td>
                     </tr>
 
 
                     <tr>
-                      <td >
-                        <div class="form-group row table-div-row"   >
-                          <label  class="col-sm-3 col-form-label table-text" ></label>
-                          <div class="col-sm-9 table-label"><span>亚马逊配送费用</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-
-                      <td>
-                        <div class="form-group row table-div-row">
-                          <span  class="col-sm-3 col-form-label table-text" ></span>
-                          <div class="col-sm-3" style="padding:0"></div>
-                          <span class="col-sm-6 table-text" >不适用</span>
-                        </div>
-                      </td>
-
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" ></span>
-                          <span class="col-sm-3" style="padding:0"></span>
-                          <span class="col-sm-6 table-text" id="amazon_fulfillment_by_amazon_fees" ></span>
-                        </div>
-                      </td>
-                    </tr>
-
-
-                    <tr>
-                      <td >
-                        <div class="form-group row table-div-row"   >
-                          <label  class="col-sm-3 col-form-label table-text" ></label>
-                          <div class="col-sm-9 table-label"><span>运送到亚马逊</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-
-                      <td>
-                        <div class="form-group row table-div-row">
-                          <span  class="col-sm-3 col-form-label table-text" ></span>
-                          <div class="col-sm-3" style="padding:0"></div>
-                          <span class="col-sm-6 table-text" >不适用</span>
-                        </div>
-                      </td>
-
-                      <td>
-                        <div class="form-group row table-div-row">
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input"
-                                                                         v-model="amazon_fulfilment_item.deliver_to_amazon">
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-
-
-                    <tr>
-                      <td >
-                        <div class="form-group row table-div-row"   >
-                          <label  class="col-sm-3 col-form-label table-text" ></label>
-                          <div class="col-sm-9 table-label"><span>总成本</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-
-                      <td>
-                      <div class="form-group row table-div-row"  >
-                        <span  class="col-sm-3 col-form-label table-text" ></span>
-                        <span class="col-sm-3" style="padding:0"></span>
-                        <span class="col-sm-6 table-text" ></span>
-                      </div>
-                      </td>
-
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" ></span>
-                          <span class="col-sm-3" style="padding:0"></span>
-                          <span class="col-sm-6 table-text" ></span>
-                        </div>
-                      </td>
-                    </tr>
-
-
-                    <tr>
-                      <td >
-                        <div class="form-group row table-div-row"  >
-                          <div class="table-text-left" ><b >储存费用</b> </div>
-                        </div>
-                      </td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-
-
-
-
-                    <tr>
-                      <td >
-                        <div class="form-group row table-div-row"   >
-                          <label  class="col-sm-3 col-form-label table-text" ></label>
-                          <div class="col-sm-9 table-label"><span>每月单位储存成本</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
-                        </div>
-                      </td>
-
-                      <td>
-                        <div class="form-group row table-div-row">
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9 table-text" style="padding:0"> <span id="amazon_monthly_storage_cost_per_unit"></span> </div>
-                        </div>
-                      </td>
+                      <td> </td>
+                      <td class="table-text"> 仓储成本 <span class="glyphicon glyphicon-question-sign"></span> </td>
+                      <td> $ </td>
+                      <td> <input type="number" class="form-control table-input"  v-model="calculate_item.storage" > </td>
                     </tr>
 
                     <tr>
-                      <td >
-                        <div class="form-group row table-div-row"   >
-                          <label  class="col-sm-3 col-form-label table-text" ></label>
-                          <div class="col-sm-9 table-label"><span>平均库存单位</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
-                        </div>
-                      </td>
+                      <td> </td>
+                      <td class="table-text"> 其它  <span class="glyphicon glyphicon-question-sign"></span> </td>
+                      <td> $ </td>
+                      <td> <input type="number" class="form-control table-input"  v-model="calculate_item.others" > </td>
+                    </tr>
 
-                      <td>
-                        <div class="form-group row table-div-row">
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" v-model="amazon_fulfilment_item.average_units_stored">
-                          </div>
-                        </div>
-                      </td>
+
+                    <tr style="height:12px"><td colspan="4"><div style="background:#000000;height:1px"></div></td></tr>
+                    <tr ><td><h5>利润</h5></td> <td> </td> <td> </td> <td></td> </tr>
+
+                    <tr>
+                      <td> </td>
+                      <td class="table-text"> <b>毛利率</b> <span class="glyphicon glyphicon-question-sign"></span> </td>
+                      <td> $ </td>
+                      <td> <span id="net_profit"  class="table-text-right text_result_bold" ></span> </td>
                     </tr>
 
                     <tr>
-                      <td >
-                        <div class="form-group row table-div-row"   >
-                          <label  class="col-sm-1 col-form-label table-text" ></label>
-                          <div class="col-sm-11 table-label"><span>每售出单位的仓储成本</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9 table-text" style="padding:0"> <span>0.00</span> </div>
-                        </div>
-                      </td>
-
-                      <td>
-                        <div class="form-group row table-div-row">
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9 table-text" style="padding:0"> <span id="amazon_storage_cost"></span> </div>
-                        </div>
-                      </td>
+                      <td> </td>
+                      <td class="table-text"> <b>毛利润率</b> <span class="glyphicon glyphicon-question-sign"></span> </td>
+                      <td> </td>
+                      <td> <span  id="net_margin" class="table-text-right text_result_bold"> </span> </td>
                     </tr>
 
 
-
-
-
-
-
-                    <tr><td colspan="3"><div style="background:#000000;height:1px"></div></td></tr>
-                    <!-- area 1  -->
-
-
-                    <tr >
-                      <td >
-                        <div class="form-group row table-div-row" style="margin-top:20px"  >
-                          <div class="table-text-left" ><b >卖方收益</b> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="form-group row table-div-row" style="margin-top:20px" >
-                          <span  class="col-sm-3 col-form-label table-text" >&nbsp;</span>
-                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
-                        </div>
-                      </td>
-
-                      <td>
-                        <div class="form-group row table-div-row" style="margin-top:20px">
-                          <span  class="col-sm-3 col-form-label table-text" ></span>
-                          <div class="col-sm-9 table-text" style="padding:0" >
-                            <span id="amazon_seller_proceeds"></span>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-
-
-                    <tr >
-                      <td >
-                        <div class="form-group row table-div-row"   >
-                          <div class="table-text-left" ><b >产品成本</b> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input type="number" class="form-control table-input" ></div>
-                        </div>
-                      </td>
-
-                      <td>
-                        <div class="form-group row table-div-row" >
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9" style="padding:0"><input  type="number" class="form-control table-input" v-model="amazon_fulfilment_item.product_cost">
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-
-
-
-                    <tr><td colspan="3"><div style="background:#000000;height:1px"></div></td></tr>
-                    <!-- area 2  -->
-
-                    <tr >
-                      <td >
-                        <div class="form-group row table-div-row"  >
-                          <div class="table-text-left" ><b >净利润</b> </div>
-                        </div>
-                      </td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-
-
+                    <tr style="height:12px"><td colspan="4"><div style="background:#000000;height:1px"></div></td></tr>
                     <tr>
-                      <td >
-                        <div class="form-group row table-div-row"   >
-                          <label  class="col-sm-3 col-form-label table-text" ></label>
-                          <div class="col-sm-9 table-label"><span>净利</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" >$</span>
-                          <div class="col-sm-9"  style="text-align:right;font-weight:bold"> <span>0.00</span></div>
-                        </div>
-                      </td>
-
-                      <td>
-                        <div class="form-group row table-div-row">
-                          <span  class="col-sm-3" >$</span>
-                          <div class="col-sm-9"  style="text-align:right">
-                             <span  id="amazon_net_profit" class="text_result_bold"> </span>
-                          </div>
-                        </div>
-                      </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> <button type="button" class="btn btn-primary mb-2" v-on:click="calculate_revenue">计算</button></td>
                     </tr>
-
-                    <tr>
-                      <td >
-                        <div class="form-group row table-div-row"   >
-                          <label  class="col-sm-3 col-form-label table-text" ></label>
-                          <div class="col-sm-9 table-label"><span>净利润</span> <span class="glyphicon glyphicon-question-sign"></span></div>
-                        </div>
-                      <td>
-                        <div class="form-group row table-div-row"  >
-                          <span  class="col-sm-3 col-form-label table-text" >&nbsp;</span>
-                          <div class="col-sm-9" style="text-align:right">
-
-                            <span class="text_result_bold">0.00</span>
-
-                          </div>
-                        </div>
-                      </td>
-
-                      <td>
-                        <div class="form-group row table-div-row">
-                          <span  class="col-sm-3 col-form-label table-text" >&nbsp;</span>
-                          <div class="col-sm-9" style="text-align:right">
-                            <span id="amazon_net_margin"  class="text_result_bold" ></span>
-
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-
-
-                    <tr><td colspan="3"><div style="background:#000000;height:1px"></div></td></tr>
-                    <!-- area 3  -->
-                    <tr>
-                      <td ></td>
-                      <td></td>
-                      <td>
-                        <div class="form-group row table-div-row" style="margin-bottom:2px;margin-top:2px">
-                          <span  class="col-sm-7 col-form-label table-text" ></span>
-                          <div class="col-sm-5" style="padding:0"><button type="button" class="btn btn-primary mb-2" v-on:click="calculate_revenue">计算</button></div>
-                        </div>
-                      </td>
-                    </tr>
-
 
 
 
                     </tbody>
                   </table>
+
+
                 </div>
                 <!-- left  content ----------->
 
@@ -609,13 +279,8 @@
 
                   </div>
 
-                    <div class="row" style="height:350px;border:1px solid #868686;" >
-                      <div class="col-sm-3"  id="chart01"  style="padding:0px;margin:0px;height:350px" ></div>
-                      <div class="col-sm-3" id="chart02" style="padding:0px;margin:0px;height:350px"></div>
-                      <div class="col-sm-3" id="chart03" style="padding:0px;margin:0px;height:350px"></div>
-                      <div class="col-sm-3" id="chart04" style="padding:0px;margin:0px;height:350px"></div>
-                    </div>
-                <div></div>
+
+                  <div></div>
                 </div>
                 <!-- right  end ----------->
     </div>
@@ -644,10 +309,8 @@
 
 </body>
   <script type="text/javascript" src="./js/calc-full.js" ></script>
-  <script type="text/javascript" src="./js/echarts.min.js" ></script>
   <script type="text/javascript" src="./js/network.js" ></script>
   <script type="text/javascript" src="./js/app.js" ></script>
-  <script type="text/javascript" src="./js/chart.js" ></script>
 
 
 </html>

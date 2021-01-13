@@ -3,10 +3,10 @@ $(function(){
     vue = new Vue({
             el: '#mainDiv',
             data:{
-                amazon_fulfilment_item: {"item_price":0.02},
-                product_list:[],
+                calculate_item: {"item_price":0.02},
+                product_list:[],  // 用于界面显示 大小为10个
                 current_product: {},
-                raw_product_list:[],
+                raw_product_list:[],  // 保存了查询到的商品列表
              },
              methods:{
                  start_search:function(){   // 获取文件 文件保存在S3中
@@ -30,17 +30,28 @@ $(function(){
 
     })
 
-    initChart('chart01', '收入', '商品价格+运费', 5, 6, '#E0DEDE')
-    initChart('chart02', '成本', '配送+亚马逊销售费用+商品成本+仓储成本', 9, 14, '#F1F4F5')
-    initChart('chart03', '卖方收益', '收入-亚马逊销售费用-配送成本-仓储成本', 9, 11, '#E0DEDE')
-    initChart('chart04', '净利', '收入-费用', 10, 21, '#F1F4F5')
-
-//    show_search_result_inner()
-//    show_left_content_inner()
-//    start_search_inner()
+    init_data()
 });
 
 
+function init_data(){
+
+
+
+    vue.current_product = {"isWhiteGloveRequired":false,"weightUnitString":"pounds","subCategory":"","fnsku":"","dimensionUnit":"inches","link":"http://www.amazon.com/gp/product/B083LFWL2F/ref=silver_xx_cont_revecalc","binding":"apparel","title":"To list your products after your brand is enrolled, enter the brand name exactly as you submitted it for brand approval, and specify a unique value for the Key Attribute that you selected in the brand","dimensionUnitString":"inches","price":0,"imageUrl":"https://m.media-amazon.com/images/I/41n-+eWgRoL._SL120_.jpg","height":14.2126,"isAfn":false,"gl":"gl_apparel","length":0.5906,"isAsinLimits":true,"weight":0.2712,"originalUrl":"","productGroup":"","width":11.4961,"thumbStringUrl":"https://m.media-amazon.com/images/I/41n-+eWgRoL._SL120_SL80_.jpg","asin":"B083LFWL2F","encryptedMarketplaceId":"","weightUnit":"pounds"}
+    show_left_content_inner()
+
+
+    vue.calculate_item['item_price']        =  0.1   // 销售价格
+    vue.calculate_item['product_cost']      =  0.2   //  成本
+    vue.calculate_item['deliver_to_amazon'] =  0.3   //  头程物流
+    vue.calculate_item['brokerage']         =  0.4   //  佣金
+
+    vue.calculate_item['fba']               =  0.5   // FBA 费用
+    vue.calculate_item['marketing']         =  0.6   // 获客成本 广告等
+    vue.calculate_item['storage']           =  0.7   // 仓储成本
+    vue.calculate_item['others']            =  0.8   // 其他
+}
 
 
 /**
@@ -68,12 +79,16 @@ function show_search_result_inner(){
 }
 
 function show_left_content_inner(asin) {
-    var current_product = find_product_by_asin(asin)
-    console.log(JSON.stringify(current_product))
-    if(current_product == null){
-        return ;
-    }
-    vue.current_product = current_product;
+//    var current_product = find_product_by_asin(asin)
+//    console.log(JSON.stringify(current_product))
+//    if(current_product == null){
+//        return ;
+//    }
+//    vue.current_product = current_product;
+
+
+
+    vue.current_product['detail_url'] = 'http://www.amazon.ca/gp/product/' +vue.current_product['asin']
     $("#search_div").css("display","none");
     $("#product_content").css("display","block");
     $('#staticBackdrop').modal('hide')
@@ -83,62 +98,42 @@ function show_left_content_inner(asin) {
 }
 
 function calculate_revenue_inner() {
+//    vue.calculate_item['item_price']        =  0.1   // 销售价格
+//    vue.calculate_item['product_cost']      =  0.2   //  成本
+//    vue.calculate_item['deliver_to_amazon'] =  0.3   //  头程物流
+//    vue.calculate_item['brokerage']         =  0.4   //  佣金
+//
+//    vue.calculate_item['fba']               =  0.5   // FBA 费用
+//    vue.calculate_item['marketing']         =  0.6   // 获客成本 广告等
+//    vue.calculate_item['storage']           =  0.7   // 仓储成本
+//    vue.calculate_item['others']            =  0.8   // 其他
+
+
+   console.log("")
+   console.log(JSON.stringify(vue.calculate_item))
+   console.log("")
+
+    var netProfit   = -20;
+    var netMargin = 13.56 ;
 
     //TODO: 计算
+    $("#net_profit").html(netProfit)
+    $("#net_margin").html(netMargin+'%')
 
-
-
-    item_price = vue.amazon_fulfilment_item['item_price']
-    deliver_to_amazon = vue.amazon_fulfilment_item['deliver_to_amazon']
-    average_units_stored = vue.amazon_fulfilment_item['average_units_stored']
-    product_cost = vue.amazon_fulfilment_item['product_cost']
-
-    console.log("calcAmazon    ",item_price, deliver_to_amazon, average_units_stored, product_cost )
-    var result = calcAmazon(item_price, deliver_to_amazon ,
-                    average_units_stored ,product_cost,
-                     4,4,24);
-
-    console.log(result)
-
-    //TODO: 包装尺寸
-
-    $("#amazon_net_profit").html(result['netProfit'])
-    $("#amazon_net_margin").html(result['netMargin']+'%')
-    $("#amazon_shipping").html(result['shipping'])
-    $("#amazon_total_revenue").html(result['totalRevenue'])
-    $("#amazon_selling_on_amazon_fees").html(result['sellingOnAmazonFees'])
-    $("#amazon_fulfillment_by_amazon_fees").html(result['fulfillmentByAmazonFees'])
-
-
-
-    $("#amazon_seller_proceeds").html(result['sellerProceeds'])
-    $("#amazon_monthly_storage_cost_per_unit").html(result['monthlyStorageCostPerUnit'])
-    $("#amazon_storage_cost").html(result['storageCost'])
-
-
-
-
-
-
-
-
-
-    var netProfit = parseFloat(result['netProfit'])
 
     console.log('netProfit = ', netProfit)
     if(netProfit >0 ){
-        $("#amazon_net_profit").css("color", 'green');
-        $("#amazon_net_margin").css("color", 'green');
+        $("#net_profit").css("color", 'green');
+        $("#net_margin").css("color", 'green');
 
     }else {
 
-        $("#amazon_net_profit").css("color", 'red');
-        $("#amazon_net_margin").css("color", 'red');
-
+        $("#net_profit").css("color", 'red');
+        $("#net_margin").css("color", 'red');
     }
 
 
-    $("#right_content").css("visibility","visible");
+//    $("#right_content").css("visibility","visible");
 
 }
 
