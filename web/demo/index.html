@@ -53,95 +53,33 @@
           <div class="modal-body" >
 
 
-            <table border="0" class="product_table" style="height:600px">
-              <tr>
-                <td>
+            <table border="0" class="product_table" style="height:600px"  >
+
+              <tr v-if="product_list.length ==10">
+                <td v-for="(product , i ) in  product_list" v-if="i < 5">
                   <div >
-                    <div ><img src="https://m.media-amazon.com/images/I/41TcQSxOraL._SL120_SL80_.jpg"></div>
-                    <div ><small>PARKER Im Rollerball Pen, Black Lacquer Gold Trim with Fine Point Black Ink Refill</small></div>
-                    <div><button type="button" class="btn btn-default btn-xs" v-on:click="show_left_content">选择</button></div>
+                    <div ><img  v-bind:src="product.thumbStringUrl"> </div>
+                    <div ><small v-text="product.title" ></small></div>
+                    <div v-if="product.display"><button type="button" class="btn btn-default btn-xs" v-on:click="show_left_content">选择</button></div>
                   </div>
                 </td>
-
-                <td>
-                  <div >
-                      <div ><img src="https://m.media-amazon.com/images/I/31ukghCMGqL._SL120_SL80_.jpg"></div>
-                      <div ><small>Matte Black Forest Fountain Pen Extra Fine Nib Classic Design with Converter and Metal Pen Box Set by Hongdian</small></div>
-                    <div><button type="button" class="btn btn-default btn-xs" v-on:click="show_left_content">选择</button></div>
-                  </div>
-                </td>
-
-                <td>
-                  <div >
-                    <div ><img src="https://m.media-amazon.com/images/I/41TcQSxOraL._SL120_SL80_.jpg"></div>
-                    <div ><small>Matte Black Forest Fountain Pen Extra Fine Nib Classic Design with Converter and Metal Pen Box Set by Hongdian</small></div>
-                    <div><button type="button" class="btn btn-default btn-xs" v-on:click="show_left_content">选择</button></div>
-                  </div>
-                </td>
-
-                <td>
-                  <div >
-                    <div ><img src="https://m.media-amazon.com/images/I/31V5YFdwaDL._SL120_SL80_.jpg"></div>
-                    <div ><small>Matte Black Forest Fountain Pen Extra Fine Nib Classic Design with Converter and Metal Pen Box Set by Hongdian</small></div>
-                    <div><button type="button" class="btn btn-default btn-xs" v-on:click="show_left_content">选择</button></div>
-                  </div>
-                </td>
-
-
-                <td>
-                  <div >
-                    <div ><img src="https://m.media-amazon.com/images/I/41TcQSxOraL._SL120_SL80_.jpg"></div>
-                    <div ><small>Matte Black Forest Fountain Pen Extra Fine Nib Classic Design with Converter and Metal Pen Box Set by Hongdian</small></div>
-                    <div><button type="button" class="btn btn-default btn-xs" v-on:click="show_left_content">选择</button></div>
-                  </div>
-                </td>
-
               </tr>
 
 
-              <tr>
-                <td>
+              <tr >
+                <td v-for="(product , i ) in  product_list" v-if="i >= 5">
                   <div >
-                    <div ><img src="https://m.media-amazon.com/images/I/41TcQSxOraL._SL120_SL80_.jpg"></div>
-                    <div ><small>Matte Black Forest Fountain Pen Extra Fine Nib Classic Design with Converter and Metal Pen Box Set by Hongdian</small></div>
-                    <div><button type="button" class="btn btn-default btn-xs" v-on:click="show_left_content">选择</button></div>
+                    <div ><img  v-bind:src="product.thumbStringUrl"></div>
+                    <div ><small v-text="product.title" ></small></div>
+                    <div v-if="product.display"><button type="button" class="btn btn-default btn-xs" v-on:click="show_left_content">选择</button></div>
                   </div>
                 </td>
-
-                <td>
-                  <div >
-                    <div ><img src="https://m.media-amazon.com/images/I/41TcQSxOraL._SL120_SL80_.jpg"></div>
-                    <div ><small>Matte Black Forest Fountain Pen Extra Fine Nib Classic Design with Converter and Metal Pen Box Set by Hongdian</small></div>
-                    <div><button type="button" class="btn btn-default btn-xs" v-on:click="show_left_content">选择</button></div>
-                  </div>
-                </td>
-
-                <td>
-                  <div >
-                    <div ><img src="https://m.media-amazon.com/images/I/41TcQSxOraL._SL120_SL80_.jpg"></div>
-                    <div ><small>Matte Black Forest Fountain Pen Extra Fine Nib Classic Design with Converter and Metal Pen Box Set by Hongdian</small></div>
-                    <div><button type="button" class="btn btn-default btn-xs" v-on:click="show_left_content">选择</button></div>
-                  </div>
-                </td>
-
-                <td>
-                  <div >
-                    <div ><img src="https://m.media-amazon.com/images/I/41TcQSxOraL._SL120_SL80_.jpg"></div>
-                    <div ><small>Matte Black Forest Fountain Pen Extra Fine Nib Classic Design with Converter and Metal Pen Box Set by Hongdian</small></div>
-                    <div><button type="button" class="btn btn-default btn-xs" v-on:click="show_left_content">选择</button></div>
-                  </div>
-                </td>
-
-
-                <td>
-                  <div >
-                    <div ><img src="https://m.media-amazon.com/images/I/41TcQSxOraL._SL120_SL80_.jpg"></div>
-                    <div ><small>Matte Black Forest Fountain Pen Extra Fine Nib Classic Design with Converter and Metal Pen Box Set by Hongdian</small></div>
-                    <div><button type="button" class="btn btn-light btn-sm" v-on:click="show_left_content">选择</button></div>
-                  </div>
-                </td>
-
               </tr>
+
+
+
+              <tr v-if="product_list.length !=10"></tr>
+              <tr v-if="product_list.length !=10"></tr>
 
 
             </table>
@@ -663,8 +601,15 @@
                 <!-- left  content ----------->
 
                 <!-- right  content ----------->
-                <div id="right_content" style="overflow:hidden;visibility: hidden;">
-                  <div style="height:160px"></div>
+                <div id="right_content" style="overflow:hidden;visibility: hidden;padding-right:15px">
+
+                  <div    style="border:1px solid #B7BFDA;margin-top:15px;height:120px;background:#ffffff;margin-bottom:15px">
+<!--                    <div><span><a href="">Price your FBA listings right </a></span></div>-->
+<!--                    <div><span><a href="">These prices compete equally on Amazon </a></span></div>-->
+<!--                    <div><span><a href="">Have you accounted for all of your costs? </a></span></div>-->
+
+                  </div>
+
                     <div class="row" style="height:350px;border:1px solid #868686;" >
                       <div class="col-sm-3"  id="chart01"  style="padding:0px;margin:0px;height:350px" ></div>
                       <div class="col-sm-3" id="chart02" style="padding:0px;margin:0px;height:350px"></div>
@@ -683,14 +628,14 @@
 </div>
 
 
-    <footer class="pt-4 border-top" style="margin-left:40px;margin-top:10px;margin-bottom:30px" >
-      <div class="row">
+    <footer class="pt-4 border-top" style="margin-left:30px;margin-top:10px;margin-bottom:30px" >
+      <div >
       <span>现在开始销售：</span>
       </div>
 
-      <div><a href="https://www.amazon.ca/b/?node=13653457011&ref=RevCalRegAmazon">在亚马逊上注册</a></div>
-      <div><a href="https://www.amazon.ca/b?ie=UTF8&node=13718755011&ref=RevCalStartFBA">亚马逊物流入门</a></div>
-      <div><a href="https://sellercentral.amazon.ca/productsearch?ref=RevCalAddProd">将产品添加到您的列表中</a></div>
+      <div><span><a href="https://www.amazon.ca/b/?node=13653457011&ref=RevCalRegAmazon">在亚马逊上注册</a></span></div>
+      <div><span><a href="https://www.amazon.ca/b?ie=UTF8&node=13718755011&ref=RevCalStartFBA">亚马逊物流入门</a></span></div>
+      <div><span><a href="https://sellercentral.amazon.ca/productsearch?ref=RevCalAddProd">将产品添加到您的列表中</a></span></div>
 
     </footer>
 
@@ -701,6 +646,7 @@
 </body>
   <script type="text/javascript" src="./js/calc-full.js" ></script>
   <script type="text/javascript" src="./js/echarts.min.js" ></script>
+  <script type="text/javascript" src="./js/network.js" ></script>
   <script type="text/javascript" src="./js/app.js" ></script>
   <script type="text/javascript" src="./js/chart.js" ></script>
 

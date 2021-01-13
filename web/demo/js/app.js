@@ -3,7 +3,8 @@ $(function(){
     vue = new Vue({
             el: '#mainDiv',
             data:{
-                amazon_fulfilment_item: {"item_price":0.02}
+                amazon_fulfilment_item: {"item_price":0.02},
+                product_list:[]
              },
              methods:{
                  start_search:function(){   // 获取文件 文件保存在S3中
@@ -26,13 +27,14 @@ $(function(){
 
     })
 //    getData()
+
     initChart('chart01', '收入', '商品价格+运费', 5, 6, '#E0DEDE')
     initChart('chart02', '成本', '配送+亚马逊销售费用+商品成本+仓储成本', 9, 14, '#F1F4F5')
     initChart('chart03', '卖方收益', '收入-亚马逊销售费用-配送成本-仓储成本', 9, 11, '#E0DEDE')
     initChart('chart04', '净利', '收入-费用', 10, 21, '#F1F4F5')
 
 //    show_search_result_inner()
-    show_left_content_inner()
+//    show_left_content_inner()
     init_data()
 //    start_search_inner()
 });
@@ -79,11 +81,13 @@ function getData(){
 function start_search_inner(){
     $('#progressBar').modal('show')
     $("#loading-icon").show()
-    setTimeout("show_search_result_inner()",2000)
+    setTimeout("show_search_result_inner()",500)
 }
 
 
 function show_search_result_inner(){
+
+    vue.product_list = get_product_list()
     $('#progressBar').modal('hide')
     $('#staticBackdrop').modal('show')
 }
@@ -167,3 +171,5 @@ function init_search_inner(){
     $("#right_content").css("visibility","hidden");
 
 }
+
+
