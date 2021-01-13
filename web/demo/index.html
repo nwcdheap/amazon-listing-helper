@@ -55,8 +55,8 @@
 
             <table border="0" class="product_table" style="height:600px"  >
 
-              <tr v-if="product_list.length ==10">
-                <td v-for="(product , i ) in  product_list" v-if="i < 5">
+              <tr v-if="product_list.length ==10" >
+                <td v-for="(product , i ) in  product_list" v-if="i < 5" style="width:20%">
                   <div >
                     <div ><img  v-bind:src="product.thumbStringUrl"> </div>
                     <div ><small v-text="product.title" ></small></div>
@@ -67,7 +67,7 @@
 
 
               <tr >
-                <td v-for="(product , i ) in  product_list" v-if="i >= 5">
+                <td v-for="(product , i ) in  product_list" v-if="i >= 5" style="width:20%">
                   <div >
                     <div ><img  v-bind:src="product.thumbStringUrl"></div>
                     <div ><small v-text="product.title" ></small></div>
@@ -75,8 +75,6 @@
                   </div>
                 </td>
               </tr>
-
-
 
               <tr v-if="product_list.length !=10"></tr>
               <tr v-if="product_list.length !=10"></tr>
@@ -115,18 +113,18 @@
       </div>
     </div>
 
-    <div  id="search_div"  style="border:1px solid #B7BFDA;background:#F2F9FB;padding-top:15px;padding-left:10px;padding-bottom:35px">
-      <div >
-        <h5 style="color:#BF6B27;padding-left:20px"> 在Amazon.com上找到您的产品 </h5>
-        <form class="form-inline">
+      <div  id="search_div"  style="border:1px solid #B7BFDA;background:#F2F9FB;padding-top:15px;padding-left:10px;padding-bottom:35px">
+        <div >
+          <h5 style="color:#BF6B27;padding-left:20px"> 在Amazon.com上找到您的产品 </h5>
+          <form class="form-inline">
 
-          <div class="form-group mx-sm-3 mb-2" style="width:450px">
-            <input type="text" class="form-control" id="inputPassword2" style="width:450px" placeholder="产品名称">
-          </div>
-          <button type="button" class="btn btn-primary mb-2"   v-on:click="start_search" >搜索</button>
-        </form>
+            <div class="form-group mx-sm-3 mb-2" style="width:450px">
+              <input type="text" class="form-control" id="product_keyword" style="width:450px" placeholder="产品名称">
+            </div>
+            <button type="button" class="btn btn-primary mb-2"   v-on:click="start_search" >搜索</button>
+          </form>
+        </div>
       </div>
-    </div>
 
 
       <div  id="product_content" style="border:1px solid #B7BFDA;margin-top:15px;height:180px;display: none;">

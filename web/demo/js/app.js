@@ -4,7 +4,8 @@ $(function(){
             el: '#mainDiv',
             data:{
                 amazon_fulfilment_item: {"item_price":0.02},
-                product_list:[]
+                product_list:[],
+                raw_product_list:[],
              },
              methods:{
                  start_search:function(){   // 获取文件 文件保存在S3中
@@ -26,7 +27,6 @@ $(function(){
              }
 
     })
-//    getData()
 
     initChart('chart01', '收入', '商品价格+运费', 5, 6, '#E0DEDE')
     initChart('chart02', '成本', '配送+亚马逊销售费用+商品成本+仓储成本', 9, 14, '#F1F4F5')
@@ -51,43 +51,30 @@ function init_data(){
     vue.amazon_fulfilment_item['is_increase']      = true
     vue.amazon_fulfilment_item['net_profit_value']      =  0
 
-
-
 }
 
-function getData(){
 
-//
-//
-//      $.ajax({
-//              async:true,
-//              type:"get",
-//              contentType : "application/json;charset=UTF-8", //类型必填
-//              url:"/pictures",
-//              dataType:"json",
-//              success:function(data){
-//                   console.log("New length: "+ data.length +" Old  length: "+ vue.pictures.length);
-//
-//                   vue.pictures = data;
-//
-//              },
-//              error:function(data){
-//                  console.log(data.result);
-//              }
-//     })
 
-}
-
+/**
+开始查询
+*/
 function start_search_inner(){
+
+    product_keyword = $("#product_keyword").val()
+    console.log("keyword " + product_keyword)
+    if (product_keyword == null || product_keyword.trim().length < 1){
+        product_keyword = "Enter+your+product+name"
+    }
+    console.log("keyword " + product_keyword)
+    request_search_product( product_keyword, 'en_US' )
     $('#progressBar').modal('show')
     $("#loading-icon").show()
-    setTimeout("show_search_result_inner()",500)
+
 }
 
 
 function show_search_result_inner(){
 
-    vue.product_list = get_product_list()
     $('#progressBar').modal('hide')
     $('#staticBackdrop').modal('show')
 }
