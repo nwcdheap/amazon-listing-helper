@@ -5,11 +5,25 @@
 <title>计算</title>
 <script type="text/javascript" src="./js/calc-full.js" ></script>
 <script type="text/javascript" src="./js/calc-simple.js" ></script>
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
     <script>
-calcAmazon(200,10,1,20,4,4,24);
+//calcAmazon(200,10,1,20,4,4,24);
 //calcSimple(99.99,20,4,24);
+</script>
+<script>
+$(function(){
+	getStatus();
+});
+
+function getStatus(){
+	$.getJSON("http://127.0.0.1/profit/productmatches?searchKey=pen&searchType=keyword&language=en_US",
+		  function(result) {
+                console.info(result);
+		      alert(result);
+		  });
+}
 </script>
 </body>
 </html>
