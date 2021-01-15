@@ -41,16 +41,16 @@ function init_data(){
     vue.current_product = {"isWhiteGloveRequired":false,"weightUnitString":"pounds","subCategory":"","fnsku":"","dimensionUnit":"inches","link":"http://www.amazon.com/gp/product/B083LFWL2F/ref=silver_xx_cont_revecalc","binding":"apparel","title":"To list your products after your brand is enrolled, enter the brand name exactly as you submitted it for brand approval, and specify a unique value for the Key Attribute that you selected in the brand","dimensionUnitString":"inches","price":0,"imageUrl":"https://m.media-amazon.com/images/I/41n-+eWgRoL._SL120_.jpg","height":14.2126,"isAfn":false,"gl":"gl_apparel","length":0.5906,"isAsinLimits":true,"weight":0.2712,"originalUrl":"","productGroup":"","width":11.4961,"thumbStringUrl":"https://m.media-amazon.com/images/I/41n-+eWgRoL._SL120_SL80_.jpg","asin":"B083LFWL2F","encryptedMarketplaceId":"","weightUnit":"pounds"}
     show_left_content_inner()
 
+    var itemPrice = 99.99
+    vue.calculate_item['item_price']        =  itemPrice   // 销售价格
+    vue.calculate_item['product_cost']      =  (itemPrice*0.3).toFixed(2);   //  成本
+    vue.calculate_item['deliver_to_amazon'] =  (itemPrice*0.01).toFixed(2);   //  头程物流
+    vue.calculate_item['brokerage']         =  (itemPrice*0.15).toFixed(2);   //  佣金
 
-    vue.calculate_item['item_price']        =  0.1   // 销售价格
-    vue.calculate_item['product_cost']      =  0.2   //  成本
-    vue.calculate_item['deliver_to_amazon'] =  0.3   //  头程物流
-    vue.calculate_item['brokerage']         =  0.4   //  佣金
-
-    vue.calculate_item['fba']               =  0.5   // FBA 费用
-    vue.calculate_item['marketing']         =  0.6   // 获客成本 广告等
-    vue.calculate_item['storage']           =  0.7   // 仓储成本
-    vue.calculate_item['others']            =  0.8   // 其他
+    vue.calculate_item['fba']               =  24.6   // FBA 费用
+    vue.calculate_item['marketing']         =  (itemPrice*0.05).toFixed(2);   // 获客成本 广告等
+    vue.calculate_item['storage']           =  (itemPrice*0.02).toFixed(2);   // 仓储成本
+    vue.calculate_item['others']            =  (itemPrice*0.05).toFixed(2);   // 其他
 }
 
 
@@ -113,8 +113,8 @@ function calculate_revenue_inner() {
    console.log(JSON.stringify(vue.calculate_item))
    console.log("")
 
-    var netProfit   = -20;
-    var netMargin = 13.56 ;
+    var netProfit   = (vue.calculate_item['item_price']-vue.calculate_item['product_cost']-vue.calculate_item['deliver_to_amazon']-vue.calculate_item['brokerage']-vue.calculate_item['fba']-vue.calculate_item['marketing']-vue.calculate_item['storage']-vue.calculate_item['others']).toFixed(2);
+    var netMargin = (netProfit / vue.calculate_item['item_price'] * 100).toFixed(2);
 
     //TODO: 计算
     $("#net_profit").html(netProfit)
