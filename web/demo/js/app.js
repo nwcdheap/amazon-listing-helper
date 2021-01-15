@@ -1,4 +1,5 @@
 var vue ;
+var server_url = "http://127.0.0.1/" ;
 $(function(){
     vue = new Vue({
             el: '#mainDiv',
@@ -9,23 +10,19 @@ $(function(){
                 raw_product_list:[],  // 保存了查询到的商品列表
              },
              methods:{
-                 start_search:function(){   // 获取文件 文件保存在S3中
+                 start_search:function(){   // 搜索商品列表
                      start_search_inner()
                  },
-//                 show_search_result:function(){   // 获取文件 文件保存在S3中
-//                      show_search_result_inner()
-//                 },
                  request_product_detail:function(e){  //用户选择了指定的商品， 显示计算面板
                     asin = e.currentTarget.name
                     request_product_detail_inner(asin)
                  },
-                 calculate_revenue:function(){
+                 calculate_revenue:function(){   // 计算商品价格
                     calculate_revenue_inner()
                  },
-                 init_search:function(){
+                 init_search:function(){   // 重新查询商品
                     init_search_inner()
                  }
-
              }
 
     })
@@ -35,9 +32,7 @@ $(function(){
 
 
 function init_data(){
-
-//    show_left_content_inner()
-
+     //    show_left_content_inner()
 }
 
 
@@ -67,12 +62,13 @@ function show_left_content_inner(result) {
         return ;
     }
 
+    console.log("result: " , JSON.stringify(result))
     vue.current_product['volume']            =  current_product['length'] + ' x ' + current_product['width'] +' x ' + current_product['height'] + ' centimetres'      // 评论数
     vue.current_product['price']             =  result['price']   // 价格
-    vue.current_product['star']              =  result['star']   // 评分
-    vue.current_product['review']            =  result['review']   // 评论数
+    vue.current_product['star']              =  result['star'].split(" ")[0]   // 评分
+    vue.current_product['review']            =  result['review'].split(" ")[0]   // 评论数
 
-    var itemPrice = result['price']
+    var itemPrice = result['price'].split("-")[0]
     itemPrice = itemPrice.replace("$", "")
     itemPrice = parseFloat(itemPrice)
     console.log(" -------price----------:     ", itemPrice)
@@ -108,12 +104,9 @@ function calculate_revenue_inner() {
                     - vue.calculate_item['storage']-vue.calculate_item['others']).toFixed(2);
     var netMargin = (netProfit / vue.calculate_item['item_price'] * 100).toFixed(2);
 
-    //TODO: 计算
     $("#net_profit").html(netProfit)
     $("#net_margin").html(netMargin+'%')
 
-
-    console.log('netProfit = ', netProfit)
     if(netProfit >0 ){
         $("#net_profit").css("color", 'green');
         $("#net_margin").css("color", 'green');
@@ -123,8 +116,6 @@ function calculate_revenue_inner() {
         $("#net_margin").css("color", 'red');
     }
 
-//    $("#right_content").css("visibility","visible");
-
 }
 
 function init_search_inner(){
@@ -133,6 +124,8 @@ function init_search_inner(){
     $("#left_content").css("visibility","hidden");
     $("#right_content").css("visibility","hidden");
 
+    $("#net_profit").html("")
+    $("#net_margin").html("")
 }
 
 

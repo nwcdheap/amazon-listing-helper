@@ -1,10 +1,11 @@
 //https://sellercentral.amazon.com/fba/profitabilitycalculator/productmatches?searchKey=abc&searchType=keyword&language=en_US
 //http://127.0.0.1/productmatches?searchKey=pen&searchType=keyword&language=en_US
+
 function request_search_product(keyword, language ){
 
       console.log("  request_search_product  ", keyword, language)
       $('#progressBar').modal('show')
-      var url = "http://127.0.0.1/profit/productmatches?searchKey="+keyword+"&searchType=keyword&language="+language
+      var url = server_url +"profit/productmatches?searchKey="+keyword+"&searchType=keyword&language="+language
       $.ajax({
               async:true,
               type:"get",
@@ -12,14 +13,14 @@ function request_search_product(keyword, language ){
               url:url,
               success:function(data){
                   var result = JSON.parse(data)
-
+                  $('#progressBar').modal('hide')
 //                  console.log('productmatches:  ', JSON.stringify(result))
                   if(result['succeed']){
                     get_product_list(result['data'])
                   }else {
                     alert("没有搜索到相关产品")
                   }
-                  $('#progressBar').modal('hide')
+
 
               },
               error:function(data){
@@ -33,7 +34,7 @@ function request_product_detail_inner(asin){
 
       $('#progressBar').modal('show')
       $('#staticBackdrop').modal('hide')
-      var url = "http://127.0.0.1/product/"+asin
+      var url = server_url + "product/"+asin
       $.ajax({
               async:true,
               type:"get",
@@ -43,20 +44,17 @@ function request_product_detail_inner(asin){
 
                  $('#progressBar').modal('hide')
                  var result = JSON.parse(data)
-                 console.log(" ==================   asin  ", asin)
-                 console.log(JSON.stringify(result))
-                 console.log("")
+//                 console.log(JSON.stringify(result))
                  if(result['code'] == 1){
                     show_left_content_inner(result['data'])
                  }else {
                     alert("未查询到商品信息")
                  }
-
-
               },
               error:function(data){
                   $('#progressBar').modal('hide')
                   console.log(data);
+                  alert("未查询到商品信息")
               }
      })
 }
