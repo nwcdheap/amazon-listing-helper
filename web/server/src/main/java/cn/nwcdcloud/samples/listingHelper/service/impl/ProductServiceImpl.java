@@ -53,6 +53,7 @@ public class ProductServiceImpl implements ProductService {
 				mapData.put("price", document.getElementById("priceblock_ourprice").text());
 				mapData.put("review", document.getElementById("acrCustomerReviewText").text());
 				mapData.put("star", document.getElementsByClass("a-icon-alt").first().text());
+				mapData.put("asin", id);
 				result.setData(mapData);
 			} else {
 				result.setCode(2);

@@ -74,3 +74,8 @@ input[type="number"]{	-moz-appearance: textfield; }
     font-size:13px;
     font-weight:bold;
 }
+
+.product_detail_div{
+    margin:4px;
+
+}

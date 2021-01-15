@@ -61,7 +61,7 @@
                     <div ><img  v-bind:src="product.thumbStringUrl"> </div>
                     <div ><small v-text="product.title" ></small></div>
                     <div v-if="product.display"><button type="button" v-bind:name="product.asin"
-                                                        class="btn btn-default btn-xs" v-on:click="show_left_content($event)">选择</button></div>
+                                                        class="btn btn-default btn-xs" v-on:click="request_product_detail($event)">选择</button></div>
                   </div>
                 </td>
               </tr>
@@ -72,7 +72,7 @@
                     <div ><img  v-bind:src="product.thumbStringUrl"></div>
                     <div ><small v-text="product.title" ></small></div>
                     <div v-if="product.display"><button type="button" v-bind:name="product.asin"
-                                                        class="btn btn-default btn-xs" v-on:click="show_left_content($event)">选择</button></div>
+                                                        class="btn btn-default btn-xs" v-on:click="request_product_detail($event)">选择</button></div>
                   </div>
                 </td>
               </tr>
@@ -128,20 +128,24 @@
       </div>
 
 
-      <div  id="product_content" style="border:1px solid #B7BFDA;margin-top:15px;height:170px;display: none;">
+      <div  id="product_content" style="border:1px solid #B7BFDA;margin-top:15px;height:200px;display: none;">
         <div  v-if="current_product != null">
           <div  style="width:140px;float:left;padding:3px;text-align:center" >
               <div ><img style="width:120px;height:120px" v-bind:src="current_product.thumbStringUrl"></div>
-
+            <div  style="margin-top:10px"><a target="_blank" :href="current_product.detail_url"><small>查看产品详情</small>  </a></div>
               <div style="margin-top:15px"><button type="button"  class="btn btn-default btn-xs" v-on:click="init_search_inner">尝试其它商品</button></div>
           </div>
           <div   style="overflow:hidden;">
             <h5 style="width:900px" v-text="current_product.title"> </h5>
-            <div><span><b>ASIN:</b> </span>  <span v-text="current_product.asin">B01LYDD533</span></div>
-            <div><span><b>产品尺寸</b> </span>  <span>2.54 X 5.08 X 17.272 centimetres</span></div>
-            <div><span><b>单位重量:</b> </span>  <span>0.077 公斤</span> </div>
+            <div class="product_detail_div" ><span><b>ASIN:</b> </span>  <span v-text="current_product.asin"></span></div>
+            <div class="product_detail_div" ><span><b>产品尺寸:</b> </span> <span v-text="current_product.volume" ></span> </div>
+            <div class="product_detail_div" ><span><b>单位重量:</b> </span>  <span v-text="current_product.weight"></span>   <span v-text="current_product.weightUnit"></span></div>
 
-            <div  style="margin-top:10px"><a target="_blank" :href="current_product.detail_url"><small>查看产品详情</small>  </a></div>
+            <div class="product_detail_div" ><span><b>价&nbsp;&nbsp;格:</b> </span>  <span style="color:#A1331A;font-weight:bold;" v-text="current_product.price"></span> </div>
+            <div class="product_detail_div" ><span><b>评&nbsp;&nbsp;分:</b> </span>  <span style="font-weight:bold;" v-text="current_product.star"></span> </div>
+            <div class="product_detail_div" ><span><b>评论数:</b> </span>  <span style="font-weight:bold;" v-text="current_product.review"></span> </div>
+
+
           </div>
         </div>
       </div>
