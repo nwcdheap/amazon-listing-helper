@@ -18,7 +18,8 @@ function request_search_product(keyword, language ){
                   if(result['succeed']){
                     get_product_list(result['data'])
                   }else {
-                    alert("没有搜索到相关产品")
+                    $("#errorMessageContent").html("没有查询到 ["+keyword+"] 相关商品")
+                    $('#errorMessageBar').modal('show')
                   }
 
 
@@ -54,7 +55,8 @@ function request_product_detail_inner(asin){
               error:function(data){
                   $('#progressBar').modal('hide')
                   console.log(data);
-                  alert("未查询到商品信息")
+                  $("#errorMessageContent").html("未查询到相关商品信息")
+                  $('#errorMessageBar').modal('show')
               }
      })
 }

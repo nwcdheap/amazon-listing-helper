@@ -25,6 +25,27 @@
   <div class="contentDiv"  id="mainDiv">
 
     <!-- Modal  start -->
+    <div class="modal fade  loadingModal" tabindex="-1" role="dialog"  id="errorMessageBar">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">提示</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="errorMessageContent">Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
     <div class="modal fade loadingModal"  id="progressBar" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"  aria-hidden="true">
       <div class="modal-dialog" style="width:300px">
         <div class="modal-content">
