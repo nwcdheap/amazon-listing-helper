@@ -1,5 +1,5 @@
 var vue ;
-var server_url = "http://127.0.0.1/" ;
+var server_url = "/" ;
 $(function(){
     vue = new Vue({
             el: '#mainDiv',
