@@ -50,8 +50,16 @@ public class ProductServiceImpl implements ProductService {
 				Map<String, String> mapData = new HashMap<>();
 				String entity = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 				Document document = Jsoup.parse(entity, "utf-8");
-				mapData.put("price", document.getElementById("priceblock_ourprice").text());
-				mapData.put("review", document.getElementById("acrCustomerReviewText").text());
+				String price = "";
+				if (document.getElementById("priceblock_ourprice") != null) {
+					price = document.getElementById("priceblock_ourprice").text();
+				}
+				mapData.put("price", price);
+				String review = "";
+				if (document.getElementById("acrCustomerReviewText") != null) {
+					review = document.getElementById("acrCustomerReviewText").text();
+				}
+				mapData.put("review", review);
 				mapData.put("star", document.getElementsByClass("a-icon-alt").first().text());
 				mapData.put("asin", id);
 				result.setData(mapData);
