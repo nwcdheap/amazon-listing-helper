@@ -22,6 +22,7 @@
   </head>
   <body>
 
+					<input type="file" id="upload" onchange="detect();">
   <div class="contentDiv"  id="mainDiv">
 
     <!-- Modal  start -->
@@ -336,6 +337,26 @@
   <script type="text/javascript" src="/static/js/calc-full.js" ></script>
   <script type="text/javascript" src="/static/js/network.js" ></script>
   <script type="text/javascript" src="/static/js/app.js" ></script>
-
+<script>
+function detect(){
+var file = upload.files[0];
+	$.ajax({
+		url : "/image/detect", 
+		type : 'POST', 
+		data : file, 
+		processData : false, 
+		contentType : "image/jpeg",
+		beforeSend:function(){
+			console.log("正在进行，请稍候");
+		},
+		success : function(result) {
+			alert(result);
+		}, 
+		error : function(result) { 
+			console.log(result);
+		}
+	});
+}
+</script>
 
 </html>
