@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -12,7 +11,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
@@ -20,32 +18,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.baidu.aip.imageclassify.AipImageClassify;
-
+import cn.nwcdcloud.commons.http.HttpPost;
 import cn.nwcdcloud.commons.lang.Result;
-import cn.nwcdcloud.samples.listingHelper.service.ProductService;
+import cn.nwcdcloud.samples.listingHelper.service.AmazonService;
 
 @Service
-public class ProductServiceImpl implements ProductService {
-
-	@Value("${app.id}")
-	private String appId;
-	@Value("${api.key}")
-	private String apiKey;
-	@Value("${secret.key}")
-	private String secretKey;
+public class AmazonServiceImpl implements AmazonService {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
-	private AipImageClassify client;
-
-	@PostConstruct
-	public void init() {
-		// 初始化一个AipImageClassify
-		client = new AipImageClassify(appId, apiKey, secretKey);
-
-		// 可选：设置网络连接参数
-		client.setConnectionTimeoutInMillis(2000);
-		client.setSocketTimeoutInMillis(60000);
-	}
+	@Value("${amazon.product.uri}")
+	private String productUri;
+	@Value("${amazon.afn.uri}")
+	private String afnUri;
 
 	@Override
 	public Result getProduct(String id) {
@@ -99,16 +82,22 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Result detect(byte[] image) {
-		Result result = new Result();
-		JSONObject res = client.advancedGeneral(image, new HashMap<String, String>());
-		if (res.has("result")) {
-			result.setData(res.getJSONArray("result").getJSONObject(0).getString("keyword"));
-		} else {
-			result.setCode(2);
-			result.setMsg("未识别成功");
-		}
+	public String productmatches(String content) {
+		StringBuffer sbUrl = new StringBuffer();
+		sbUrl.append(productUri).append("?").append(content).append("&profitcalcToken=123");
+		cn.nwcdcloud.commons.http.HttpGet httpGet = new cn.nwcdcloud.commons.http.HttpGet(sbUrl.toString());
+		String result = httpGet.execute();
+		logger.debug(result);
 		return result;
 	}
 
+	@Override
+	public String getafnfee(String content) {
+		StringBuffer sbUrl = new StringBuffer();
+		sbUrl.append(afnUri).append("?profitcalcToken=123");
+		HttpPost httpPost = new HttpPost(sbUrl.toString(), content);
+		String result = httpPost.execute();
+		logger.debug(result);
+		return result;
+	}
 }

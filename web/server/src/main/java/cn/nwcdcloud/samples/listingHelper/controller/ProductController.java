@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.nwcdcloud.commons.lang.Result;
-import cn.nwcdcloud.samples.listingHelper.service.ProductService;
+import cn.nwcdcloud.samples.listingHelper.service.AmazonService;
 
 @Controller
 @RequestMapping("/product")
 @CrossOrigin
 public class ProductController {
 	@Autowired
-	private ProductService productService;
+	private AmazonService productService;
 
 	@GetMapping("/{id}")
 	@ResponseBody

@@ -2,8 +2,10 @@ package cn.nwcdcloud.samples.listingHelper.service;
 
 import cn.nwcdcloud.commons.lang.Result;
 
-public interface ProductService {
+public interface AmazonService {
 	Result getProduct(String id);
-	
-	Result detect(byte[] image);
+
+	String productmatches(String content);
+
+	String getafnfee(String content);
 }

@@ -13,19 +13,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.nwcdcloud.commons.lang.Result;
-import cn.nwcdcloud.samples.listingHelper.service.ProductService;
+import cn.nwcdcloud.samples.listingHelper.service.AmazonService;
+import cn.nwcdcloud.samples.listingHelper.service.ImageService;
 
 @Controller
 @RequestMapping("/image")
 @CrossOrigin
 public class ImageController {
 	@Autowired
-	private ProductService productService;
+	private ImageService rekognitionServiceImpl;
+//	@Autowired
+//	private TranslateService translateService;
+	@Autowired
+	private AmazonService amazonService;
 
 	@PostMapping("/detect")
 	@ResponseBody
 	public String detect(HttpServletRequest request) throws IOException {
-		Result result = productService.detect(IOUtils.toByteArray(request.getInputStream()));
-		return result.toString();
+		Result result = rekognitionServiceImpl.detect(IOUtils.toByteArray(request.getInputStream()));
+		String data = (String) result.getData();
+//		String dataEn = translateService.toEn(data);
+		String queryString = String.format("searchKey=%s&searchType=keyword&language=en_US", data);
+		return amazonService.productmatches(queryString);
 	}
 }
