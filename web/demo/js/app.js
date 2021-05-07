@@ -139,3 +139,8 @@ function find_product_by_asin(asin){
     }
     return null;
 }
+
+
+function loadFile(file){
+    $("#filename").html(file.name);
+}

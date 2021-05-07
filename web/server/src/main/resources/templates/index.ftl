@@ -22,7 +22,6 @@
   </head>
   <body>
 
-					<input type="file" id="upload" onchange="detect();">
   <div class="contentDiv"  id="mainDiv">
 
     <!-- Modal  start -->
@@ -145,6 +144,16 @@
               <input type="text" class="form-control" id="product_keyword" style="width:450px" placeholder="产品名称">
             </div>
             <button type="button" class="btn btn-primary mb-2"   v-on:click="start_search" >搜索</button>
+
+<!--            <input type="file" id="upload" class="btn btn-primary mb-2"    onchange="detect();" />-->
+
+            <div class="file-container" style="display:inline-block;position:relative;overflow: hidden;vertical-align:middle">
+              <button class="btn btn-success fileinput-button" type="button">用图搜索</button>
+              <input type="file" id="upload" onchange="request_detect()" style="position:absolute;top:0;left:0;font-size:34px; opacity:0">
+            </div>
+            <span id="filename" style="vertical-align: middle"> </span>
+
+
           </form>
         </div>
       </div>
@@ -337,26 +346,5 @@
   <script type="text/javascript" src="/static/js/calc-full.js" ></script>
   <script type="text/javascript" src="/static/js/network.js" ></script>
   <script type="text/javascript" src="/static/js/app.js" ></script>
-<script>
-function detect(){
-var file = upload.files[0];
-	$.ajax({
-		url : "/image/detect", 
-		type : 'POST', 
-		data : file, 
-		processData : false, 
-		contentType : "image/jpeg",
-		beforeSend:function(){
-			console.log("正在进行，请稍候");
-		},
-		success : function(result) {
-			alert(result);
-		}, 
-		error : function(result) { 
-			console.log(result);
-		}
-	});
-}
-</script>
 
 </html>

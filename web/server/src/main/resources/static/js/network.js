@@ -63,6 +63,41 @@ function request_product_detail_inner(asin){
 
 
 
+function request_detect(){
+    var file = upload.files[0];
+    $("#filename").html(file.name);
+    console.log("  request_detect  "  ,file.name )
+    $('#progressBar').modal('show')
+
+	$.ajax({
+		url : "/image/detect",
+		type : 'POST',
+		data : file,
+		processData : false,
+		contentType : "image/jpeg",
+		beforeSend:function(){
+			console.log("正在进行，请稍候");
+		},
+		success : function(data) {
+
+          var result = JSON.parse(data)
+          $('#progressBar').modal('hide')
+          console.log('request_detect result:  ', JSON.stringify(result))
+          if(result['succeed']){
+            get_product_list(result['data'])
+          }else {
+            $("#errorMessageContent").html("没有查询到 ["+keyword+"] 相关商品")
+            $('#errorMessageBar').modal('show')
+          }
+		},
+		error : function(data) {
+			console.log(data);
+            $('#progressBar').modal('hide')
+		}
+	});
+}
+
+
 
 function get_product_list(raw_product_list){
 
