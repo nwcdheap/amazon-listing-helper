@@ -25,28 +25,45 @@ import software.amazon.awssdk.services.rekognition.model.Label;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
+import software.amazon.awssdk.utils.StringUtils;
 
 @Service
 public class RekognitionServiceImpl implements ImageService {
+	@Value("${recognitionType}")
+	private int recognitionType;
 	@Value("${secret.global.name}")
 	private String secretId;
+	@Value("${secret.global.GlobalAK}")
+	private String globalAK;
+	@Value("${secret.global.GlobalSK}")
+	private String globalSK;
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	RekognitionClient rekClient;
 
 	@PostConstruct
 	public void init() {
-		// 需要在SecretsManager里创建密钥名称为GlobalAKSK的密钥(其他类别)，密钥值包含GlobalAK、GlobalSK
-		SecretsManagerClient client = SecretsManagerClient.create();
-		GetSecretValueRequest valueRequest = GetSecretValueRequest.builder().secretId(secretId).build();
+		if (recognitionType != 1) {
+			return;
+		}
+		try {
+			if (StringUtils.isBlank(globalAK) || StringUtils.isBlank(globalSK)) {
+				// 需要在SecretsManager里创建密钥名称为GlobalAKSK的密钥(其他类别)，密钥值包含GlobalAK、GlobalSK
+				SecretsManagerClient client = SecretsManagerClient.create();
+				GetSecretValueRequest valueRequest = GetSecretValueRequest.builder().secretId(secretId).build();
 
-		GetSecretValueResponse valueResponse = client.getSecretValue(valueRequest);
-		String secret = valueResponse.secretString();
-		JSONObject json = JSONObject.parseObject(secret);
-		Region region = Region.US_EAST_1;
-		rekClient = RekognitionClient.builder()
-				.credentialsProvider(StaticCredentialsProvider
-						.create(AwsBasicCredentials.create(json.getString("GlobalAK"), json.getString("GlobalSK"))))
-				.region(region).build();
+				GetSecretValueResponse valueResponse = client.getSecretValue(valueRequest);
+				String secret = valueResponse.secretString();
+				JSONObject json = JSONObject.parseObject(secret);
+				globalAK = json.getString("GlobalAK");
+				globalSK = json.getString("GlobalSK");
+			}
+			rekClient = RekognitionClient.builder()
+					.credentialsProvider(
+							StaticCredentialsProvider.create(AwsBasicCredentials.create(globalAK, globalSK)))
+					.region(Region.US_EAST_1).build();
+		} catch (Exception e) {
+			logger.warn("配置Rekognition报错", e);
+		}
 	}
 
 	@Override
