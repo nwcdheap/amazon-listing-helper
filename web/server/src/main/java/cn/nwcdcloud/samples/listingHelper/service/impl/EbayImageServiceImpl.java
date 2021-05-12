@@ -106,7 +106,7 @@ public class EbayImageServiceImpl implements ImageService {
 			logger.debug("请求eBay searchByImage结果:{}", entity);
 			if (httpResponse.getStatusLine().getStatusCode() == HttpServletResponse.SC_OK) {
 				JSONObject jsonResult = JSONObject.parseObject(entity);
-				String data = jsonResult.getJSONArray("itemSummaries").getJSONObject(0).getString("title");
+				String data = jsonResult.getJSONArray("itemSummaries").getJSONObject(1).getString("title");
 				logger.info("获取到eBay 第一个data:{}", data);
 				result.setData(data);
 			}

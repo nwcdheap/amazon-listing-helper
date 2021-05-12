@@ -74,11 +74,20 @@ public class RekognitionServiceImpl implements ImageService {
 		DetectLabelsRequest detectLabelsRequest = DetectLabelsRequest.builder().image(souImage).maxLabels(10).build();
 		DetectLabelsResponse labelsResponse = rekClient.detectLabels(detectLabelsRequest);
 		List<Label> labels = labelsResponse.labels();
-		for (Label label : labels) {
-			logger.debug("检测到第一个：{}", label.name());
-			result.setData(label.name());
-			break;
+		StringBuffer sbData = new StringBuffer();
+		for (int i = 0; i < labels.size() && i < 2; i++) {
+			Label label = labels.get(i);
+			logger.debug("检测到第{}个：{}", i, label.name());
+			if (i == 0) {
+				sbData.append(label.name());
+			} else {
+				sbData.append(" ").append(label.name());
+			}
 		}
+		if (logger.isDebugEnabled()) {
+			logger.debug("Rekognition识别结果:{}", sbData.toString());
+		}
+		result.setData(sbData.toString());
 		return result;
 	}
 }
