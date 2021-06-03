@@ -9,13 +9,15 @@
 
     <!-- Bootstrap core CSS -->
 <!--    <link href="./assets/dist/css/bootstrap.css" rel="stylesheet">-->
+<!--  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js" ></script>
 
     <!-- Custom styles for this template -->
     <link href="/static/css/style.css" rel="stylesheet">
@@ -128,7 +130,7 @@
     <div style="margin-bottom:20px">
       <h2 style="color:#BF6B27">亚马逊收入计算器</h2>
 
-      <span>提供您的履行成本，并查看您的履行与我们在Amazon.ca上为客户订单提供的服务之间的实时成本比较</span>
+      <span>提供您的履行成本，并查看您的履行与我们在Amazon.com上为客户订单提供的服务之间的实时成本比较</span>
 
       <div>
         <small><b>免责声明</b> 此亚马逊收入计算器的实现应仅用作评估亚马逊物流的指南。Amazon不保证此收入计算器中信息或计算的准确性。应对此收入计算器的输出进行独立分析，以验证结果。请查阅《亚马逊服务业务解决方案协议》以获取最新费用。新亚马逊配送选项反映您当前的亚马逊销售费用和亚马逊物流配送费用。</small>

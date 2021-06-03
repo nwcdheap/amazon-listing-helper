@@ -33,19 +33,11 @@ public class AmazonServiceImpl implements AmazonService {
 	@Override
 	public Result getProduct(String id) {
 		Result result = new Result();
-		// 创建HttpClient
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-
-		// 目标网址
 		String url = String.format("https://www.amazon.com/gp/product/%s/ref=silver_xx_cont_revecalc", id);
-
-		// 创建请求方法
 		HttpGet httpGet = new HttpGet(url);
-
-		// 设置Header模拟浏览器行为
 		httpGet.setHeader("User-Agent",
 				"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36");
-
 		httpGet.addHeader("Cookie",
 				"ubid-main=134-0374546-0715727;  x-main=\"DMkUzMa9a3O2I3wY@wEZkD1baDh6FEsRujawQ@GDKJ7WXANk5?Q9p?o5ZeBe4ihr\"; ");
 		try {
@@ -57,7 +49,7 @@ public class AmazonServiceImpl implements AmazonService {
 				Document document = Jsoup.parse(entity, "utf-8");
 				String price = "";
 				if (document.getElementById("priceblock_ourprice") != null) {
-					price = document.getElementById("priceblock_ourprice").text();
+					price = document.getElementById("priceblock_ourprice").text().replace("US$", "");
 				}
 				mapData.put("price", price);
 				String review = "";
@@ -84,11 +76,36 @@ public class AmazonServiceImpl implements AmazonService {
 	@Override
 	public String productmatches(String content) {
 		StringBuffer sbUrl = new StringBuffer();
-		sbUrl.append(productUri).append("?").append(content).append("&profitcalcToken=123");
-		cn.nwcdcloud.commons.http.HttpGet httpGet = new cn.nwcdcloud.commons.http.HttpGet(sbUrl.toString());
-		String result = httpGet.execute();
-		logger.debug(result);
-		return result;
+		sbUrl.append(productUri).append("?").append(content).append("&profitcalcToken=1235");
+
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpGet httpGet = new HttpGet(sbUrl.toString());
+//		httpGet.setHeader("User-Agent",
+//				"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36");
+//		httpGet.setHeader("host", "sellercentral.amazon.com");
+		try {
+			// 发送请求，收取响应
+			CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
+			String entity = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
+			int status = httpResponse.getStatusLine().getStatusCode();
+			if (status >= HttpServletResponse.SC_OK && status < HttpServletResponse.SC_MULTIPLE_CHOICES) {
+				if (logger.isDebugEnabled()) {
+					logger.debug("查询结果:{}", entity);
+				}
+				return entity;
+			} else {
+				logger.warn("请求Amazon报错，url:{},结果{}", sbUrl.toString(), entity);
+				return "";
+			}
+		} catch (IOException e) {
+			return "";
+		} finally {
+			try {
+				httpClient.close();
+			} catch (IOException e) {
+				logger.warn("关闭流报错", e);
+			}
+		}
 	}
 
 	@Override

@@ -84,7 +84,7 @@ function show_left_content_inner(result) {
     vue.calculate_item['others']            =  (itemPrice*0.05).toFixed(2);   // 其他
 
 
-    vue.current_product['detail_url'] = 'http://www.amazon.ca/gp/product/' +vue.current_product['asin']
+    vue.current_product['detail_url'] = 'http://www.amazon.com/gp/product/' +vue.current_product['asin']
     $("#search_div").css("display","none");
     $("#product_content").css("display","block");
     $('#staticBackdrop').modal('hide')
