@@ -174,7 +174,7 @@
             <div class="product_detail_div" ><span><b>产品尺寸:</b> </span> <span v-text="current_product.volume" ></span> </div>
             <div class="product_detail_div" ><span><b>单位重量:</b> </span>  <span v-text="current_product.weight"></span>   <span v-text="current_product.weightUnit"></span></div>
 
-            <div class="product_detail_div" ><span><b>价&nbsp;&nbsp;格:</b> </span>  <span style="color:#A1331A;font-weight:bold;" v-text="current_product.price"></span> </div>
+            <div class="product_detail_div" ><span><b>价格($):</b> </span>  <span style="color:#A1331A;font-weight:bold;" v-text="current_product.price"></span> </div>
             <div class="product_detail_div" ><span><b>评&nbsp;&nbsp;分:</b> </span>  <span style="font-weight:bold;" v-text="current_product.star"></span> </div>
             <div class="product_detail_div" ><span><b>评论数:</b> </span>  <span style="font-weight:bold;" v-text="current_product.review"></span> </div>
 
@@ -244,7 +244,7 @@
                       <td> </td>
                       <td class="table-text"> FBA物流 <span class="glyphicon glyphicon-question-sign"></span> </td>
                       <td> $ </td>
-                      <td> <input type="number" class="form-control table-input"  v-model="calculate_item.fba" > </td>
+                      <td> <input id="fba" type="number" class="form-control table-input"  v-model="calculate_item.fba" > </td>
                     </tr>
 
 
@@ -348,5 +348,6 @@
   <script type="text/javascript" src="/static/js/calc-full.js" ></script>
   <script type="text/javascript" src="/static/js/network.js" ></script>
   <script type="text/javascript" src="/static/js/app.js" ></script>
+  <script type="text/javascript" src="/static/js/date.js" ></script>
 
 </html>

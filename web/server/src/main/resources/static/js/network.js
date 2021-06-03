@@ -1,6 +1,9 @@
 //https://sellercentral.amazon.com/fba/profitabilitycalculator/productmatches?searchKey=abc&searchType=keyword&language=en_US
 //http://127.0.0.1/productmatches?searchKey=pen&searchType=keyword&language=en_US
 
+
+var productList;
+var tmpAsin;
 function request_search_product(keyword, language ){
 
       console.log("  request_search_product  ", keyword, language)
@@ -16,7 +19,7 @@ function request_search_product(keyword, language ){
                   $('#progressBar').modal('hide')
 //                  console.log('productmatches:  ', JSON.stringify(result))
                   if(result['succeed']){
-                    get_product_list(result['data'])
+                    get_product_list(result['data']);
                   }else {
                     $("#errorMessageContent").html("没有查询到 ["+keyword+"] 相关商品")
                     $('#errorMessageBar').modal('show')
@@ -32,7 +35,7 @@ function request_search_product(keyword, language ){
 }
 
 function request_product_detail_inner(asin){
-
+	tmpAsin = asin;
       $('#progressBar').modal('show')
       $('#staticBackdrop').modal('hide')
       var url = server_url + "product/"+asin
@@ -100,7 +103,7 @@ function request_detect(){
 
 
 function get_product_list(raw_product_list){
-
+   productList=raw_product_list;
    console.log('product_list  length= ' , raw_product_list.length)
    vue.raw_product_list = raw_product_list
 
@@ -130,4 +133,44 @@ function get_product_list(raw_product_list){
 
 }
 
+function getAfn(productInfoMapping,price){
+//	var size = productList.length;
+//	var productInfoMapping;
+//	for(var i=0;i<size;i++){
+//		if(productList[i]['asin'] == tmpAsin){
+//			productInfoMapping = productList[i];
+//			break;
+//		}
+//	}
+	var requestInfo = {};
+	requestInfo["afnPriceStr"] = price;
+	requestInfo["currency"] = "USD";
+	requestInfo["futureFeeDate"] = new Date().Format("yyyy-MM-dd HH:mm:ss");
+	requestInfo["hasFutureFee"] = false;
+	requestInfo["hasTaxPage"] = true;
+	requestInfo["marketPlaceId"] = "ATVPDKIKX0DER";//不知道是否需要动态
+	requestInfo["mfnPriceStr"] = 0;
+	requestInfo["mfnShippingPriceStr"] = 0;
+	requestInfo["productInfoMapping"] = productInfoMapping;
+	
 
+    var url = server_url + "profit/getafnfee";
+    var fba;
+	$.ajax({
+		async:false,
+        type:"post",
+        contentType : "application/json", //类型必填
+        data: JSON.stringify(requestInfo),
+        url:url,
+        success:function(result){
+        	console.log(result);
+        	var resultJson=JSON.parse(result);
+        	fba=resultJson.data.afnFees.pickAndPackFee.amount;
+        	console.log("fba:"+fba);
+        },
+        error:function(data){
+        	console.log("请求fba出错:"+data);
+        }
+	});
+	return fba;
+}
