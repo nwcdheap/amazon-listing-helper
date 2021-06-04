@@ -2,7 +2,6 @@ package cn.nwcdcloud.samples.listingHelper.service.impl;
 
 import java.io.IOException;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
@@ -15,6 +14,8 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -27,6 +28,7 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 import software.amazon.awssdk.utils.StringUtils;
 
 @Service
+@EnableScheduling
 public class EbayImageServiceImpl implements ImageService {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	@Value("${recognitionType}")
@@ -40,7 +42,7 @@ public class EbayImageServiceImpl implements ImageService {
 	private String authorization;
 	private String accessToken;
 
-	@PostConstruct
+//	@PostConstruct
 	public void init() {
 		if (recognitionType != 2) {
 			return;
@@ -62,6 +64,12 @@ public class EbayImageServiceImpl implements ImageService {
 		} catch (Exception e) {
 			logger.warn("配置eBay图片识别报错", e);
 		}
+	}
+
+	@Scheduled(fixedRate = 3000000)
+	private void configureTasks() {
+		logger.info("定时获取eBay Token");
+		init();
 	}
 
 	private void getAccessTokenFromServer() {
