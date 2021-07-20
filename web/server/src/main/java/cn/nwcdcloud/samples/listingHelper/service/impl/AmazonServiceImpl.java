@@ -3,11 +3,14 @@ package cn.nwcdcloud.samples.listingHelper.service.impl;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -18,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import cn.nwcdcloud.commons.http.HttpPost;
 import cn.nwcdcloud.commons.lang.Result;
 import cn.nwcdcloud.samples.listingHelper.service.AmazonService;
 
@@ -29,6 +31,10 @@ public class AmazonServiceImpl implements AmazonService {
 	private String productUri;
 	@Value("${amazon.afn.uri}")
 	private String afnUri;
+	@Value("${cookie}")
+	private String cookie;
+	@Value("${user.agent}")
+	private String userAgent;
 
 	@Override
 	public Result getProduct(String id) {
@@ -36,10 +42,8 @@ public class AmazonServiceImpl implements AmazonService {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		String url = String.format("https://www.amazon.com/gp/product/%s/ref=silver_xx_cont_revecalc", id);
 		HttpGet httpGet = new HttpGet(url);
-		httpGet.setHeader("User-Agent",
-				"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36");
-		httpGet.addHeader("Cookie",
-				"ubid-main=134-0374546-0715727;  x-main=\"DMkUzMa9a3O2I3wY@wEZkD1baDh6FEsRujawQ@GDKJ7WXANk5?Q9p?o5ZeBe4ihr\"; ");
+		httpGet.setHeader("User-Agent", userAgent);
+		httpGet.setHeader("Cookie", cookie);
 		try {
 			// 发送请求，收取响应
 			CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
@@ -73,16 +77,20 @@ public class AmazonServiceImpl implements AmazonService {
 		return result;
 	}
 
+	protected String getUUID() {
+		return UUID.randomUUID().toString().replace("-", "").toUpperCase();
+	}
+
 	@Override
 	public String productmatches(String content) {
 		StringBuffer sbUrl = new StringBuffer();
-		sbUrl.append(productUri).append("?").append(content).append("&profitcalcToken=1235");
+		sbUrl.append(productUri).append("?").append(content).append("&profitcalcToken=").append(getUUID());
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(sbUrl.toString());
-//		httpGet.setHeader("User-Agent",
-//				"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36");
-//		httpGet.setHeader("host", "sellercentral.amazon.com");
+		httpGet.setHeader("User-Agent", userAgent);
+		httpGet.setHeader("host", "sellercentral.amazon.com");
+		httpGet.setHeader("cookie", cookie);
 		try {
 			// 发送请求，收取响应
 			CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
@@ -94,7 +102,8 @@ public class AmazonServiceImpl implements AmazonService {
 				}
 				return entity;
 			} else {
-				logger.warn("请求Amazon报错，url:{},结果{}", sbUrl.toString(), entity);
+				logger.warn("请求Amazon查询商品报错，url:{}", sbUrl.toString());
+//				logger.debug("请求Amazon报错，结果{}", entity);
 				return "";
 			}
 		} catch (IOException e) {
@@ -112,9 +121,35 @@ public class AmazonServiceImpl implements AmazonService {
 	public String getafnfee(String content) {
 		StringBuffer sbUrl = new StringBuffer();
 		sbUrl.append(afnUri).append("?profitcalcToken=123");
-		HttpPost httpPost = new HttpPost(sbUrl.toString(), content);
-		String result = httpPost.execute();
-		logger.debug(result);
-		return result;
+
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpPost httpPost = new HttpPost(sbUrl.toString());
+		httpPost.setHeader("User-Agent", userAgent);
+		httpPost.setHeader("host", "sellercentral.amazon.com");
+		httpPost.setHeader("cookie", cookie);
+		try {
+			httpPost.setEntity(new StringEntity(content));
+			CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
+			String entity = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
+			int status = httpResponse.getStatusLine().getStatusCode();
+			if (status >= HttpServletResponse.SC_OK && status < HttpServletResponse.SC_MULTIPLE_CHOICES) {
+				if (logger.isDebugEnabled()) {
+					logger.debug("查询结果:{}", entity);
+				}
+				return entity;
+			} else {
+				logger.warn("请求Amazon FBA报错，url:{}", sbUrl.toString());
+				logger.warn("请求Amazon FBA报错，", entity);
+				return "";
+			}
+		} catch (IOException e) {
+			return "";
+		} finally {
+			try {
+				httpClient.close();
+			} catch (IOException e) {
+				logger.warn("关闭流报错", e);
+			}
+		}
 	}
 }

@@ -53,8 +53,15 @@ function start_search_inner(){
 
 
 function show_left_content_inner(result) {
+	console.log("result: " , JSON.stringify(result));
+
+    var itemPrice = result['price'].split("-")[0]
+    itemPrice = itemPrice.replace("$", "")
+    itemPrice = parseFloat(itemPrice)
+    console.log(" -------price----------:     ", itemPrice)
+    
     var current_product = find_product_by_asin(asin);
-    var fba = getAfn(current_product,result['price']);
+    var fba = getAfn(current_product,itemPrice);
 //    current_product = {"isWhiteGloveRequired":false,"weightUnitString":"pounds","subCategory":"","fnsku":"","dimensionUnit":"inches","link":"http://www.amazon.com/gp/product/B083LFWL2F/ref=silver_xx_cont_revecalc","binding":"apparel","title":"To list your products after your brand is enrolled, enter the brand name exactly as you submitted it for brand approval, and specify a unique value for the Key Attribute that you selected in the brand","dimensionUnitString":"inches","price":0,"imageUrl":"https://m.media-amazon.com/images/I/41n-+eWgRoL._SL120_.jpg","height":14.2126,"isAfn":false,"gl":"gl_apparel","length":0.5906,"isAsinLimits":true,"weight":0.2712,"originalUrl":"","productGroup":"","width":11.4961,"thumbStringUrl":"https://m.media-amazon.com/images/I/41n-+eWgRoL._SL120_SL80_.jpg","asin":"B083LFWL2F","encryptedMarketplaceId":"","weightUnit":"pounds"}
 
     vue.current_product = current_product;
@@ -62,16 +69,11 @@ function show_left_content_inner(result) {
         return ;
     }
 
-    console.log("result: " , JSON.stringify(result))
     vue.current_product['volume']            =  current_product['length'] + ' x ' + current_product['width'] +' x ' + current_product['height'] + ' centimetres'      // 评论数
     vue.current_product['price']             =  result['price']   // 价格
     vue.current_product['star']              =  result['star'].split(" ")[0]   // 评分
     vue.current_product['review']            =  result['review'].split(" ")[0]   // 评论数
 
-    var itemPrice = result['price'].split("-")[0]
-    itemPrice = itemPrice.replace("$", "")
-    itemPrice = parseFloat(itemPrice)
-    console.log(" -------price----------:     ", itemPrice)
 
     vue.calculate_item['item_price']        =  itemPrice   // 销售价格
     vue.calculate_item['product_cost']      =  (itemPrice*0.3).toFixed(2);   //  成本

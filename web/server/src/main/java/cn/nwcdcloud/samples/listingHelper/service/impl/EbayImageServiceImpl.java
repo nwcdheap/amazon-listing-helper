@@ -66,7 +66,7 @@ public class EbayImageServiceImpl implements ImageService {
 		}
 	}
 
-	@Scheduled(fixedRate = 3000000)
+	@Scheduled(fixedRate = 3600000)
 	private void configureTasks() {
 		logger.info("定时获取eBay Token");
 		init();

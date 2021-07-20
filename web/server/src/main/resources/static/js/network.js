@@ -15,8 +15,14 @@ function request_search_product(keyword, language ){
               contentType : "application/json;charset=UTF-8", //类型必填
               url:url,
               success:function(data){
+                  $('#progressBar').modal('hide');
+                  console.info("商品查询结果:"+data);
+            	  if(data==""){
+                      $("#errorMessageContent").html("商品查询失败");
+                      $('#errorMessageBar').modal('show');
+                      return;
+            	  }
                   var result = JSON.parse(data)
-                  $('#progressBar').modal('hide')
 //                  console.log('productmatches:  ', JSON.stringify(result))
                   if(result['succeed']){
                     get_product_list(result['data']);
@@ -82,16 +88,20 @@ function request_detect(){
 			console.log("正在进行，请稍候");
 		},
 		success : function(data) {
-
-          var result = JSON.parse(data)
-          $('#progressBar').modal('hide')
-          console.log('request_detect result:  ', JSON.stringify(result))
-          if(result['succeed']){
-            get_product_list(result['data'])
-          }else {
-            $("#errorMessageContent").html("没有查询到 ["+keyword+"] 相关商品")
-            $('#errorMessageBar').modal('show')
-          }
+			console.log('request_detect result:  ', data);
+			$('#progressBar').modal('hide');
+			if(data==""){
+                $("#errorMessageContent").html("商品查询失败");
+                $('#errorMessageBar').modal('show');
+                return;
+	      	  }
+	          var result = JSON.parse(data)
+	          if(result['succeed']){
+	            get_product_list(result['data'])
+	          }else {
+	            $("#errorMessageContent").html("没有查询到 ["+keyword+"] 相关商品")
+	            $('#errorMessageBar').modal('show')
+	          }
 		},
 		error : function(data) {
 			console.log(data);
